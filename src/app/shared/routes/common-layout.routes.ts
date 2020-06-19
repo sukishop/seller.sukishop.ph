@@ -9,6 +9,12 @@ export const CommonLayout_ROUTES: Routes = [
         loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule),
     },
 
+    //Products
+    {
+        path: 'products',
+        loadChildren: () => import('../../products/products.module').then(m => m.ProductsModule),
+    },
+
     //Apps
     {
         path: 'apps',

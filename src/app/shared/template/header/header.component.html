@@ -4,13 +4,13 @@
             <img src="assets/images/logo/logo.png" alt="Logo">
             <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo">
         </a>
-    </div>
+    </div>  
     <div class="logo logo-white">
         <a href="">
-            <img src="assets/images/logo/logo-white.png" alt="Logo">
-            <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo">
+            <img src="assets/images/logo/logo.png" alt="Logo">
+            <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo">
         </a>
-    </div>
+    </div> 
     <div class="nav-wrap">
         <ul class="nav-left">
             <li class="desktop-toggle">
@@ -89,32 +89,14 @@
                             </div>
                         </li>
                         <li nz-menu-item>
-                            <a class="p-v-5 d-flex align-items-center justify-content-between">
+                            <a class="p-v-5 d-flex align-items-center justify-content-between" [routerLink]="['/pages/setting']">
                                 <div>
                                     <i class="opacity-04 font-size-16" nz-icon nzType="user" theme="outline"></i>
                                     <span class="m-l-10">Edit Profile</span>
                                 </div>
                                 <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
                             </a>
-                        </li>
-                        <li nz-menu-item>
-                            <a class="p-v-5 d-flex align-items-center justify-content-between">
-                                <div>
-                                    <i class="opacity-04 font-size-16" nz-icon nzType="lock" theme="outline"></i>
-                                    <span class="m-l-10">Account Setting</span>
-                                </div>
-                                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-                            </a>
-                        </li>
-                        <li nz-menu-item>
-                            <a class="p-v-5 d-flex align-items-center justify-content-between">
-                                <div>
-                                    <i class="opacity-04 font-size-16" nz-icon nzType="project" theme="outline"></i>
-                                    <span class="m-l-10">Projects</span>
-                                </div>
-                                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-                            </a>
-                        </li>
+                        </li>                        
                         <li nz-menu-item>
                             <a class="p-v-5 d-flex align-items-center justify-content-between" (click)="signOut()">
                                 <div>
@@ -126,16 +108,7 @@
                         </li>
                     </ul>
                 </nz-dropdown-menu>
-            </li>
-            <li>
-                <a (click)="quickViewToggle()">
-                    <i nz-icon nzType="appstore" theme="outline"></i>
-                </a>
-                <nz-drawer [nzWidth]="280" nzTitle="Theme Config" [nzClosable]="false" [nzVisible]="quickViewVisible"
-                    nzPlacement="right" (nzOnClose)="quickViewToggle()">
-                    <app-quick-view></app-quick-view>
-                </nz-drawer>
-            </li>
+            </li>            
         </ul>
     </div>
 </div>
