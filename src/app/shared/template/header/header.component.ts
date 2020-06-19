@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html'
 })
 
-export class HeaderComponent{
+export class HeaderComponent {
 
-    searchVisible : boolean = false;
-    quickViewVisible : boolean = false;
-    isFolded : boolean;
-    isExpand : boolean;
+    searchVisible: boolean = false;
+    quickViewVisible: boolean = false;
+    isFolded: boolean;
+    isExpand: boolean;
 
-    constructor( private themeService: ThemeConstantService) {}
+    constructor(private themeService: ThemeConstantService, private authService: AuthenticationService) { }
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
@@ -38,6 +39,10 @@ export class HeaderComponent{
 
     quickViewToggle(): void {
         this.quickViewVisible = !this.quickViewVisible;
+    }
+
+    signOut() {
+        this.authService.SignOut();
     }
 
     notificationList = [
