@@ -17,6 +17,11 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
+import { AuthenticationService } from './shared/services/authentication.service';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 registerLocaleData(en);
 
@@ -33,14 +38,17 @@ registerLocaleData(en);
         NzBreadCrumbModule,
         TemplateModule,
         SharedModule,
-        NgChartjsModule
+        NgChartjsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
     ],
     providers: [
-        { 
+        {
             provide: NZ_I18N,
-            useValue: en_US, 
+            useValue: en_US,
         },
-        ThemeConstantService
+        ThemeConstantService,
+        AuthenticationService
     ],
     bootstrap: [AppComponent]
 })

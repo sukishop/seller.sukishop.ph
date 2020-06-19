@@ -27,7 +27,8 @@
                 <a (click)="searchToggle()">
                     <i nz-icon nzType="search" theme="outline"></i>
                 </a>
-                <nz-drawer [nzWidth]="380" nzTitle="Search" [nzVisible]="searchVisible" nzPlacement="left" (nzOnClose)="searchToggle()">
+                <nz-drawer [nzWidth]="380" nzTitle="Search" [nzVisible]="searchVisible" nzPlacement="left"
+                    (nzOnClose)="searchToggle()">
                     <app-search></app-search>
                 </nz-drawer>
             </li>
@@ -51,7 +52,8 @@
                             </a>
                         </div>
                         <perfect-scrollbar class="overflow-y-auto" style="max-height: 300px">
-                            <nz-list class="ant-list-item-links" [nzDataSource]="notificationList" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+                            <nz-list class="ant-list-item-links" [nzDataSource]="notificationList" [nzRenderItem]="item"
+                                [nzItemLayout]="'horizontal'">
                                 <ng-template #item let-item>
                                     <nz-list-item>
                                         <a [routerLink]="''">
@@ -71,7 +73,8 @@
                 </nz-dropdown-menu>
             </li>
             <li>
-                <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+                <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'"
+                    [nzPlacement]="'bottomRight'">
                     <nz-avatar [nzIcon]="'user'" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar>
                 </span>
                 <nz-dropdown-menu #profile="nzDropdownMenu">
@@ -113,7 +116,7 @@
                             </a>
                         </li>
                         <li nz-menu-item>
-                            <a class="p-v-5 d-flex align-items-center justify-content-between" [routerLink]="['/authentication/login']">
+                            <a class="p-v-5 d-flex align-items-center justify-content-between" (click)="signOut()">
                                 <div>
                                     <i class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
                                     <span class="m-l-10">Logout</span>
@@ -122,16 +125,17 @@
                             </a>
                         </li>
                     </ul>
-                </nz-dropdown-menu >
+                </nz-dropdown-menu>
             </li>
             <li>
                 <a (click)="quickViewToggle()">
                     <i nz-icon nzType="appstore" theme="outline"></i>
                 </a>
-                <nz-drawer [nzWidth]="280" nzTitle="Theme Config" [nzClosable]="false" [nzVisible]="quickViewVisible" nzPlacement="right" (nzOnClose)="quickViewToggle()">
+                <nz-drawer [nzWidth]="280" nzTitle="Theme Config" [nzClosable]="false" [nzVisible]="quickViewVisible"
+                    nzPlacement="right" (nzOnClose)="quickViewToggle()">
                     <app-quick-view></app-quick-view>
                 </nz-drawer>
             </li>
         </ul>
     </div>
-</div>    
+</div>

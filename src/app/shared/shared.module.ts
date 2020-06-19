@@ -24,7 +24,7 @@ import { SearchPipe } from './pipes/search.pipe';
         CommonModule,
         NzIconModule,
         NzToolTipModule,
-        PerfectScrollbarModule
+        PerfectScrollbarModule,
     ],
     declarations: [
         SearchPipe
