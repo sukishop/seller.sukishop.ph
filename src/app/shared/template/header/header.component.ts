@@ -47,27 +47,21 @@ export class HeaderComponent {
 
     notificationList = [
         {
-            title: 'You received a new message',
+            title: 'Order From Gail Arenas',
             time: '8 min',
-            icon: 'mail',
+            icon: 'shop',
             color: 'ant-avatar-' + 'blue'
-        },
+        },        
         {
-            title: 'New user registered',
-            time: '7 hours',
-            icon: 'user-add',
-            color: 'ant-avatar-' + 'cyan'
-        },
-        {
-            title: 'System Alert',
-            time: '8 hours',
+            title: '0 Travel Set Stocks Remaining',
+            time: '10 mins',
             icon: 'warning',
             color: 'ant-avatar-' + 'red'
         },
         {
-            title: 'You have a new update',
+            title: '1 Regular Set Stocks Remaining',
             time: '2 days',
-            icon: 'sync',
+            icon: 'alert',
             color: 'ant-avatar-' + 'gold'
         }
     ];
