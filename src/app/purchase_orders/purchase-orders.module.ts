@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProductsRoutingModule } from './products-routing.module';
+import { PurchaseOrdersRoutingModule } from './purchase-orders-routing.module';
 import { QuillModule } from 'ngx-quill';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
@@ -33,8 +33,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
-import { ProductsListComponent } from './products-list.component';
-import { ProductComponent } from './product.component';
+import { PurchaseOrdersListComponent } from './purchase-orders-list.component';
 
 const antdModule = [
     NzButtonModule,
@@ -67,13 +66,12 @@ const antdModule = [
     imports: [
         SharedModule,
         ReactiveFormsModule,
-        ProductsRoutingModule,
+        PurchaseOrdersRoutingModule,
         QuillModule,
         ...antdModule
     ],
     declarations: [        
-        ProductsListComponent,
-        ProductComponent
+        PurchaseOrdersListComponent,        
     ],
     providers: [
         ThemeConstantService,
@@ -82,4 +80,4 @@ const antdModule = [
     ]
 })
 
-export class ProductsModule {}
+export class PurchaseOrdersModule {}

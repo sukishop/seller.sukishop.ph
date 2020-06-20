@@ -15,6 +15,18 @@ export const CommonLayout_ROUTES: Routes = [
         loadChildren: () => import('../../products/products.module').then(m => m.ProductsModule),
     },
 
+    //Expenses
+    {
+        path: 'expenses',
+        loadChildren: () => import('../../expenses/expenses.module').then(m => m.ExpensesModule),
+    },
+
+    //Purchase Orders
+    {
+        path: 'purchase-orders',
+        loadChildren: () => import('../../purchase_orders/purchase-orders.module').then(m => m.PurchaseOrdersModule),
+    },
+
     //Apps
     {
         path: 'apps',
