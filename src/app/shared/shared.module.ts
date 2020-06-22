@@ -7,6 +7,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ThemeConstantService } from './services/theme-constant.service';
+import { HttpHandlerService } from './services/http-handler.service';
 import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SearchPipe } from './pipes/search.pipe';
         SearchPipe
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        HttpHandlerService
     ]
 })
 

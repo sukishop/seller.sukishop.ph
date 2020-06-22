@@ -42,7 +42,7 @@ export class HeaderComponent {
     }
 
     signOut() {
-        this.authService.SignOut();
+        this.authService.signOut();
     }
 
     notificationList = [
@@ -51,7 +51,7 @@ export class HeaderComponent {
             time: '8 min',
             icon: 'shop',
             color: 'ant-avatar-' + 'blue'
-        },        
+        },
         {
             title: '0 Travel Set Stocks Remaining',
             time: '10 mins',

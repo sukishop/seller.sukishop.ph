@@ -22,6 +22,8 @@ import { AuthenticationService } from './shared/services/authentication.service'
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './shared/interceptor/token.interceptor';
 
 registerLocaleData(en);
 
@@ -46,6 +48,11 @@ registerLocaleData(en);
         {
             provide: NZ_I18N,
             useValue: en_US,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true,
         },
         ThemeConstantService,
         AuthenticationService

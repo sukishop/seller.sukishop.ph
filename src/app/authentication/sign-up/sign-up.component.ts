@@ -30,7 +30,7 @@ export class SignUpComponent {
         }
 
         if (this.signUpForm.valid) {
-            this.authService.SignUp(this.signUpForm.get('email').value, this.signUpForm.get('password').value);
+            this.authService.signUp(this.signUpForm.get('email').value, this.signUpForm.get('password').value);
         }
 
         //this.router.navigateByUrl('/authentication/register-business');
