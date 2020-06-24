@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
         //if (currentUser && currentUser.token) {
         request = request.clone({
-            withCredentials: true,
+            // withCredentials: true,
             setHeaders: {
                 Authorization: `Bearer 1234567890` // test token
             }

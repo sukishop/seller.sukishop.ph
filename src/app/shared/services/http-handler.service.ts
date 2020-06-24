@@ -9,9 +9,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class HttpHandlerService {
 
   private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    })
+    headers: {
+      'Content-Type': 'application/json'
+    }
   };
 
   constructor(

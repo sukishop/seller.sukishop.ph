@@ -43,7 +43,7 @@ export class AuthenticationService {
                     //     'username': this.userData.email,
                     //     'uuid': this.userData.uid
                     // });
-                    let token = await this.httpHandler.sendPost('https://api.sukishop.ph/v1/auth/get-token', 'uuid=123');
+                    let token = await this.httpHandler.sendPost('https://api.sukishop.ph/v1/auth/get-token', {uuid: 123});
                     console.log('Finished get-token');
                     console.log(result);
 
