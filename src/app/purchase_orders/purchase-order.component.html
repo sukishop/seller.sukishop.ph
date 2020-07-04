@@ -1,0 +1,13 @@
+<div class="demo-components-container">
+    <form nz-form class="login-form" [formGroup]="validateForm">
+        <nz-form-item>            
+            <nz-demo-select-custom-dropdown-menu demo></nz-demo-select-custom-dropdown-menu>                        
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input the amount!">            
+                <input type="text" nz-input formControlName="amount" placeholder="Amount" />            
+            </nz-form-control>
+        </nz-form-item>      
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Submit</button>        
+    </form>
+</div>    
