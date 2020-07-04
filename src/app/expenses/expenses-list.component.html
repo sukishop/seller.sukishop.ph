@@ -1,0 +1,112 @@
+<nz-card>
+    <div class="row">
+        <div class="col-md-3">
+            <nz-card>
+                <div class="media align-items-center">
+                    <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
+                    <div class="m-l-15">
+                        <p class="m-b-0 text-muted">Overall</p>
+                        <h3 class="m-b-0 ls-1">1,300,521</h3>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+        <div class="col-md-3">
+            <nz-card>
+                <div class="media align-items-center">
+                    <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
+                    <div class="m-l-15">
+                        <p class="m-b-0 text-muted">This Month</p>
+                        <h3 class="m-b-0 ls-1">₱144,521</h3>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+        <div class="col-md-3">
+            <nz-card>
+                <div class="media align-items-center">
+                    <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
+                    <div class="m-l-15">
+                        <p class="m-b-0 text-muted">This week</p>
+                        <h3 class="m-b-0 ls-1">₱50000</h3>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+        <div class="col-md-3">
+            <nz-card>
+                <div class="media align-items-center">
+                    <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
+                    <div class="m-l-15">
+                        <p class="m-b-0 text-muted">Today</p>
+                        <h3 class="m-b-0 ls-1">₱10000</h3>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+    </div>         
+</nz-card>
+
+<nz-card>     
+    <div class="row m-b-30">
+        <div class="col-lg-8">
+            <div class="d-md-flex">
+                <div class="m-b-10 m-r-20">
+                    <nz-input-group [nzPrefix]="prefixTemplate">
+                        <input type="text" nz-input placeholder="Search Expenses" [(ngModel)]="searchInput" (ngModelChange)="search()">
+                    </nz-input-group>      
+                    <ng-template #prefixTemplate>
+                        <i nz-icon nzType="search" class="opacity-05"></i>
+                    </ng-template>   
+                </div>
+                <div class="m-b-10 m-r-20 d-flex align-items-center">
+                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange($event)">
+                        <nz-option nzLabel="All" nzValue="All"></nz-option>
+                        <nz-option nzLabel="Operational Expenses" nzValue="Operational Expenses"></nz-option>
+                        <nz-option nzLabel="Personal Expenses" nzValue="Personal Expenses"></nz-option>
+                        <nz-option nzLabel="Shipping Expenses" nzValue="Shipping Expenses"></nz-option>
+                    </nz-select>
+                </div>                
+            </div>          
+        </div>
+        <div class="col-lg-4 text-right">
+            <a nz-button nzType="primary">
+                <i nz-icon nzType="plus-circle" theme="outline"></i>
+                <span>Add Expenses</span>
+            </a>
+        </div>
+    </div>
+    <nz-table #expensesListTable [nzData]="displayData">
+        <thead>
+            <tr>
+                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of expensesListTable.data;  let i=index">
+                <td>#{{item.id}}</td>
+                <td>
+                    <div class="d-flex align-items-center">                        
+                        <span class="m-l-10"><a [routerLink]="['#']">{{item.name}}</a></span>
+                    </div>
+                </td>
+                <td>₱{{item.amount | number:'3.2-5'}}</td>
+                <td>{{item.date}}</td>
+                <td>
+                    {{item.category}}  
+                </td>
+                <td>                    
+                    <span class="text-capitalize">{{item.account}}</span>
+                </td>
+                <td class="text-md-right">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit" [routerLink]="'#'">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>
+                    <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete">
+                        <i nz-icon nzType="delete" theme="outline"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

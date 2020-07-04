@@ -1,0 +1,79 @@
+<nz-card>
+    <div class="row m-b-30">
+        <div class="col-lg-8"> 
+            <div class="d-md-flex">
+                <div class="m-b-10 m-r-20">
+                    <nz-input-group [nzPrefix]="prefixTemplate">
+                        <input type="text" nz-input placeholder="Search" [(ngModel)]="searchInput" (ngModelChange)="search()">
+                    </nz-input-group>      
+                    <ng-template #prefixTemplate>
+                        <i nz-icon nzType="search" class="opacity-05"></i>
+                    </ng-template>   
+                </div>
+                <div class="m-b-10 m-r-20 d-flex align-items-center">
+                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Vendor" [(ngModel)]="selectedCategory" (ngModelChange)="vendorChange($event)">
+                        <nz-option nzLabel="All" nzValue="All"></nz-option>
+                        <nz-option nzLabel="Kath Ong - BeauteFinds" nzValue="Kath Ong - BeauteFinds"></nz-option>
+                        <nz-option nzLabel="Beautederm - Head Office" nzValue="Beautederm - Head Office"></nz-option>                        
+                    </nz-select>
+                </div>
+                <div class="m-b-10 m-r-20 d-flex align-items-center">
+                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status" [(ngModel)]="selectedStatus" (ngModelChange)="statusChange($event)">
+                        <nz-option nzLabel="All" nzValue="All"></nz-option>
+                        <nz-option nzLabel="Recieved" nzValue="Recieved"></nz-option>
+                        <nz-option nzLabel="Unrecieved" nzValue="Unrecieved"></nz-option>
+                    </nz-select>
+                </div>
+            </div>          
+        </div>
+        <div class="col-lg-4 text-right">
+            <a nz-button nzType="primary" [routerLink]="['/purchase-orders/view']">
+                <i nz-icon nzType="plus-circle" theme="outline"></i>
+                <span>Add Purchase Order</span>
+            </a>
+        </div>
+    </div>
+    <nz-table #purchaseOrdersListTable [nzData]="displayData">
+        <thead>
+            <tr>
+                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of purchaseOrdersListTable.data;  let i=index">
+                <td>{{item.date}}</td>
+                <td>{{item.po_num}}</td>
+                <td>
+                    <div class="d-flex align-items-center">                        
+                        <span class="m-l-10"><a [routerLink]="['/products/view']">{{item.vendor}}</a></span>
+                    </div>
+                </td>                
+                <td>₱{{item.amount | number:'3.2-5'}}</td>                
+                <td>
+                    <nz-badge *ngIf="item.status == 'paid'" nzStatus="success"></nz-badge>
+                    <nz-badge *ngIf="item.status == 'unpaid'" nzStatus="error"></nz-badge>
+                    <span class="text-capitalize">{{item.payment_status}}</span>
+                </td>
+                <td>
+                    <nz-badge *ngIf="item.status == 'recieved'" nzStatus="success"></nz-badge>
+                    <nz-badge *ngIf="item.status == 'unrecieved'" nzStatus="error"></nz-badge>
+                    <span class="text-capitalize">{{item.order_status}}</span>
+                </td>
+                <td class="text-md-right">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit" [routerLink]="['/products/view']">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>                    
+                    <button class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete">
+                        <i nz-icon nzType="delete" theme="outline"></i>
+                    </button>                    
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="clone" [routerLink]="['/products/view']">
+                        <i nz-icon nzType="copy" theme="outline"></i>
+                    </a>
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Print" [routerLink]="['/products/view']">
+                        <i nz-icon nzType="printer" theme="outline"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

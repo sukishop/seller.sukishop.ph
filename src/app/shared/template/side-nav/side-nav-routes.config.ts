@@ -26,7 +26,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '/charts/chartjs',
+        path: '/expenses',
         title: 'Expenses',
         iconType: 'nzIcon',
         iconTheme: 'outline',
@@ -42,8 +42,8 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '/demo/components/grid/en',
-        title: 'Purchase Order',
+        path: '/purchase-orders',
+        title: 'Purchase Orders',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'shopping-cart',
