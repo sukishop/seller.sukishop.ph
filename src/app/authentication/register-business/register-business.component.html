@@ -12,31 +12,49 @@
                         <nz-card>
                             <h2 class="m-t-20">Register your Business</h2>
                             <p class="m-b-30">Register your business to get access</p>
-                            <form nz-form [formGroup]="signUpForm" class="login-form" nzLayout="vertical" (ngSubmit)="submitForm()">
+                            <form nz-form [formGroup]="registerForm" class="login-form" nzLayout="vertical" (ngSubmit)="submitForm()">
                                 <nz-form-item>
-                                    <nz-form-label nzRequired nzFor="userName">Business Name</nz-form-label>
-                                    <nz-form-control nzErrorTip="Please input your business name!">
-                                        <input type="text" nz-input formControlName="userName" placeholder="Username" id="userName">
+                                    <nz-form-label nzRequired nzFor="businessName">Business Name</nz-form-label>
+                                    <nz-form-control nzErrorTip="Please input your business name">
+                                        <input type="text" nz-input formControlName="businessName" placeholder="Business Name" id="businessName">
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
-                                    <nz-form-label nzRequired nzFor="email">Phone</nz-form-label>
-                                    <nz-form-control nzErrorTip="The input is not phone Number!">
-                                        <input type="text" nz-input formControlName="email" placeholder="Username" id="email">
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-label nzRequired nzFor="password">Address</nz-form-label>
-                                    <nz-form-control nzErrorTip="Please input your Password!">
-                                        <textarea nz-input formControlName="password" placeholder="Password" id="password">
+                                    <nz-form-label nzRequired nzFor="businessAddress">Address</nz-form-label>
+                                    <nz-form-control nzErrorTip="Please enter your business address">
+                                        <textarea nz-input formControlName="businessAddress" placeholder="Business Address" id="businessAddress">
                                         </textarea>
                                     </nz-form-control>
-                                </nz-form-item>                                
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label nzRequired nzFor="phoneNumber">Phone</nz-form-label>
+                                    <nz-form-control nzErrorTip="Please enter your phone number">
+                                        <input type="text" nz-input formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber">
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label nzRequired nzFor="businessOwnerFirstName">Owner's First Name</nz-form-label>
+                                    <nz-form-control nzErrorTip="Please enter your first name">
+                                        <input type="text" nz-input formControlName="businessOwnerFirstName" placeholder="Owner's First Name" id="businessOwnerFirstName">
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label nzRequired nzFor="businessOwnerLastName">Owner's Last Name</nz-form-label>
+                                    <nz-form-control nzErrorTip="Please enter your last name">
+                                        <input type="text" nz-input formControlName="businessOwnerLastName" placeholder="Owner's Last Name" id="businessOwnerLastName">
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label nzFor="businessLogo">Business Logo</nz-form-label>
+                                    <nz-form-control>
+                                        <input type="file" nz-input formControlName="businessLogo" placeholder="Business Logo" id="businessLogo" (change)="onFileSelected($event)">
+                                    </nz-form-control>
+                                </nz-form-item>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <nz-form-item>
-                                        <nz-form-control>
+                                        <nz-form-control nzErrorTip="Please read and accept the agreement">
                                             <label nz-checkbox formControlName="agree">
-                                                <span>I have read the <a>agreement</a></span>
+                                                <span>I have read and accept the <a>agreement</a></span>
                                             </label>
                                         </nz-form-control>
                                     </nz-form-item>
@@ -46,7 +64,7 @@
                                                 <button nz-button class="login-form-button" [nzType]="'primary'">Sign Up</button>
                                             </div>
                                         </nz-form-control>
-                                    </nz-form-item>   
+                                    </nz-form-item>
                                 </div>
                             </form>
                         </nz-card>
@@ -66,4 +84,3 @@
             </div>
         </div>
     </div>
-    

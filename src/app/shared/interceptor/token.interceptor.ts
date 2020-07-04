@@ -11,14 +11,14 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        //if (currentUser && currentUser.token) {
-        request = request.clone({
-            // withCredentials: true,
-            setHeaders: {
-                Authorization: `Bearer 1234567890` // test token
-            }
-        });
-        //}
+        if (this.authService.isLoggedIn) {
+            let token = localStorage.getItem('token');
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        }
 
         return next.handle(request);
     }

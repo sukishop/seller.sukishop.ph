@@ -23,30 +23,33 @@ export class HttpHandlerService {
 
   sendPost(url, body, options = {}) {
 
-    console.log('Posting data');
-
     return this.http.post(url, body, this.httpOptions).toPromise()
       .then((response) => {
         return response;
       })
       .catch((e) => {
 
-        if (this.router == null) {
-          this.router = this.injector.get(Router);
+        if (e.status !== 404) {
+          if (this.router == null) {
+            this.router = this.injector.get(Router);
+          }
+
+          this.logoutUser();
+          this.router.navigate(['authentication/error']);
+
+          return false;
+        } else {
+          return e.error;
         }
 
-        this.logoutUser();
-        this.router.navigate(['authentication/error']);
-
-        return false;
       });
   }
 
   logoutUser() {
     console.log('Logging out');
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
+      localStorage.setItem('user', null);
+      localStorage.setItem('token', null);
     });
   }
 
