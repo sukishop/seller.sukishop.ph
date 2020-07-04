@@ -3,9 +3,11 @@ import { TableService } from '../shared/services/table.service';
 
 interface DataItem {
     date: string;
+    po_num: number;
     vendor: string;
     amount: number;    
-    status:  string;
+    payment_status:  string;
+    order_status: string;
 }
 
 @Component({  
@@ -21,8 +23,12 @@ export class PurchaseOrdersListComponent  {
 
     orderColumn = [        
         {
-            title: 'Date',
+            title: 'Order date',
             compare: (a: DataItem, b: DataItem) => a.date.localeCompare(b.date)
+        },
+        {
+            title: 'PO #',
+            compare: (a: DataItem, b: DataItem) => a.po_num - b.po_num,
         },
         {
             title: 'Vendor',
@@ -33,8 +39,12 @@ export class PurchaseOrdersListComponent  {
             compare: (a: DataItem, b: DataItem) => a.amount - b.amount,
         },        
         {
-            title: 'Status',
-            compare: (a: DataItem, b: DataItem) => a.status.localeCompare(b.status)
+            title: 'Payment Status',
+            compare: (a: DataItem, b: DataItem) => a.payment_status.localeCompare(b.payment_status)
+        },
+        {
+            title: 'Purchase Status',
+            compare: (a: DataItem, b: DataItem) => a.order_status.localeCompare(b.order_status)
         },
         {
             title: ''
@@ -43,40 +53,52 @@ export class PurchaseOrdersListComponent  {
 
     purchaseOrdersList = [
         {
-            date: '06/20/2020',            
-            vendor: 'Katherine Ong - BeauteFinds',
+            date: '06/20/2020',              
+            vendor: 'Kath Ong - BeauteFinds',
             amount: 100000,            
-            status: 'in-progress',            
+            payment_status: 'Paid',            
+            order_status: 'Recieved',
+            po_num: 1001,          
         },
         {
             date: '06/10/2020',            
             vendor: 'Beautederm - Head Office',
             amount: 100000,            
-            status: 'delivered',            
+            payment_status: 'Paid',            
+            order_status: 'Recieved',
+            po_num: 1001,            
         },
         {
             date: '06/01/2020',            
             vendor: 'Beautederm - Head Office',
             amount: 100000,            
-            status: 'delivered',            
+            payment_status: 'Paid',            
+            order_status: 'Recieved',
+            po_num: 1001,            
         },
         {
             date: '05/28/2020',            
             vendor: 'Beautederm Head Office',
             amount: 100000,            
-            status: 'delivered',            
+            payment_status: 'Paid',            
+            order_status: 'Recieved',
+            po_num: 1001,            
         },
         {
             date: '05/20/2020',            
             vendor: 'Beautederm Head Office',
             amount: 100000,            
-            status: 'delivered',            
+            payment_status: 'Paid',            
+            order_status: 'Recieved',
+            po_num: 1001,            
         },
         {
             date: '5/10/2020',            
-            vendor: 'Katherine Ong - BeauteFinds',
+            vendor: 'Kath Ong - BeauteFinds',
             amount: 100000,            
-            status: 'delivered',            
+            payment_status: 'Paid',            
+            order_status: 'Recieved',
+            po_num: 1001,            
         },        
     ]  
     
@@ -91,7 +113,7 @@ export class PurchaseOrdersListComponent  {
 
     statusChange(value: string): void {
         const data = this.purchaseOrdersList
-        value !== 'All'? this.displayData = data.filter(elm => elm.status === value) : this.displayData = data
+        value !== 'All'? this.displayData = data.filter(elm => elm.order_status === value) : this.displayData = data
     }
 
     vendorChange(value: string): void {
