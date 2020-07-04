@@ -29,17 +29,17 @@ export class LoginComponent {
         }
 
         if (this.loginForm.valid) {
-            this.authService.SignIn(this.loginForm.get('email').value, this.loginForm.get('password').value);
+            this.authService.signIn(this.loginForm.get('email').value, this.loginForm.get('password').value);
         }
     }
 
     socialLogin(type) {
         if (type === 'google') {
-            return this.authService.GoogleAuth();
+            return this.authService.googleAuth();
         }
 
         if (type === 'facebook') {
-            return this.authService.FacebookAuth();
+            return this.authService.facebookAuth();
         }
     }
 }
