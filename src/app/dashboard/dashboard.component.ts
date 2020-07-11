@@ -17,8 +17,7 @@ export class DashboardComponent {
     purple = this.themeColors.purple;
     purpleLight = this.themeColors.purpleLight;
     red = this.themeColors.red;
-
-
+    
     constructor(private colorConfig: ThemeConstantService, private authService: AuthenticationService) { }
 
     salesChartOptions: any = {
@@ -254,8 +253,9 @@ export class DashboardComponent {
             growth: 5.8
         }
     ];
-
+   
     ngOnInit(): void {
-        console.log(this.authService.userData);
+        console.log(this.authService.userData);        
+        console.log(localStorage.getItem('user'));
     }
 }

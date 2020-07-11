@@ -19,6 +19,8 @@ export class HeaderComponent {
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+        console.log('USER:');
+        console.log(localStorage.getItem('user')); 
     }
 
     toggleFold() {
@@ -65,4 +67,9 @@ export class HeaderComponent {
             color: 'ant-avatar-' + 'gold'
         }
     ];
+    
+    get user(): any {
+        return JSON.parse(localStorage.getItem('user'));
+    }
+ 
 }

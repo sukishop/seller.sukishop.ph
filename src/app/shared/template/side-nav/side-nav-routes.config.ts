@@ -8,17 +8,9 @@ export const ROUTES: SideNavInterface[] = [
         iconTheme: 'outline',
         icon: 'dashboard',
         submenu: []
-    },
+    },   
     {
-        path: '/pages/invoice',
-        title: 'Invoice',
-        iconType: 'nzIcon',
-        icon: 'file-text',
-        iconTheme: '',
-        submenu: []
-    },
-    {
-        path: '/apps/e-commerce/orders-list',
+        path: '/orders',
         title: 'Orders',
         iconType: 'nzIcon',
         iconTheme: 'outline',

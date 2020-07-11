@@ -13,9 +13,9 @@
                 <div class="m-b-10 m-r-20 d-flex align-items-center">
                     <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange($event)">
                         <nz-option nzLabel="All" nzValue="All"></nz-option>
-                        <nz-option nzLabel="Home Decoration" nzValue="Home Decoration"></nz-option>
-                        <nz-option nzLabel="Eletronic" nzValue="Eletronic"></nz-option>
-                        <nz-option nzLabel="Jewellery" nzValue="Jewellery"></nz-option>
+                        <nz-option nzLabel="Facial Care" nzValue="Facial Care"></nz-option>
+                        <nz-option nzLabel="Body Care" nzValue="Body Care"></nz-option>
+                        <nz-option nzLabel="Makeup" nzValue="Makeup"></nz-option>
                     </nz-select>
                 </div>
                 <div class="m-b-10 m-r-20 d-flex align-items-center">
@@ -28,7 +28,7 @@
             </div>          
         </div>
         <div class="col-lg-4 text-right">
-            <a nz-button nzType="primary">
+            <a nz-button nzType="primary" [routerLink]="['/products/add']">
                 <i nz-icon nzType="plus-circle" theme="outline"></i>
                 <span>Add Product</span>
             </a>

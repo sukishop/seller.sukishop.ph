@@ -1,13 +1,53 @@
-<div class="demo-components-container">
-    <form nz-form class="login-form" [formGroup]="validateForm">
-        <nz-form-item>            
-            <nz-demo-select-custom-dropdown-menu demo></nz-demo-select-custom-dropdown-menu>                        
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-control nzErrorTip="Please input the amount!">            
-                <input type="text" nz-input formControlName="amount" placeholder="Amount" />            
-            </nz-form-control>
-        </nz-form-item>      
-        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Submit</button>        
-    </form>
-</div>    
+<div class="container purchase-order">
+    <nz-card nzTitle="Add Purchase Order">
+        <div class="media align-items-center"> 
+            <form nz-form style="width: 100%;">
+                <nz-form-item>        
+                    <nz-form-label>Vendor</nz-form-label>
+                    <nz-vendor-select-custom-dropdown-menu></nz-vendor-select-custom-dropdown-menu>                        
+                </nz-form-item>
+                <hr class="m-v-25 ng-star-inserted">                
+                <div class="row ng-star-inserted">
+                    <div class="col-md-4"> 
+                        <nz-form-item>        
+                            <nz-form-label>Product</nz-form-label> 
+                            <nz-product-select-custom-dropdown-menu></nz-product-select-custom-dropdown-menu>                        
+                        </nz-form-item>  
+                    </div> 
+                    <div class="col-md-2">   
+                        <nz-form-item>
+                            <nz-form-label>Qty</nz-form-label> 
+                            <nz-input-number [nzMin]="1" [nzStep]="1"></nz-input-number>
+                        </nz-form-item>      
+                    </div>    
+                    <div class="col-md-2">                                       
+                        <nz-form-item>
+                            <nz-form-label>Cost Per Unit</nz-form-label> 
+                            <input type="text" nz-input placeholder="Price" />            
+                        </nz-form-item>               
+                    </div>        
+                    <div class="col-md-4">                                       
+                        <nz-form-item>
+                            <nz-form-label>Amount</nz-form-label>
+                            <input type="text" nz-input placeholder="Sub Total" disabled />       
+                        </nz-form-item>              
+                    </div>    
+                </div>
+                <div class="row"> 
+                    <div class="col-md-4">                         
+                        <a class="small">
+                            <i nz-icon nzType="plus-circle" theme="outline"></i>
+                            &nbsp;<span>Add Item</span>
+                        </a>
+                    </div>                 
+                    <div class="col-md-4"></div> 
+                    <div class="col-md-4">    
+                        <h3><span class="font-weight-semibold text-dark">Total :</span> ₱0.00</h3>
+                    </div>                    
+                </div>
+                <hr class="m-v-25 ng-star-inserted">              
+                <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Submit</button>        
+            </form>
+        </div>    
+    </nz-card>    
+</div>
