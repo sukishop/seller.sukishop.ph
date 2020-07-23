@@ -57,7 +57,7 @@ export class PurchaseOrdersListComponent  {
             vendor: 'Kath Ong - BeauteFinds',
             amount: 100000,            
             payment_status: 'Paid',            
-            order_status: 'Recieved',
+            order_status: 'Delivered',
             po_num: 1001,          
         },
         {
@@ -65,7 +65,7 @@ export class PurchaseOrdersListComponent  {
             vendor: 'Beautederm - Head Office',
             amount: 100000,            
             payment_status: 'Paid',            
-            order_status: 'Recieved',
+            order_status: 'Delivered',
             po_num: 1001,            
         },
         {
@@ -73,7 +73,7 @@ export class PurchaseOrdersListComponent  {
             vendor: 'Beautederm - Head Office',
             amount: 100000,            
             payment_status: 'Paid',            
-            order_status: 'Recieved',
+            order_status: 'Delivered',
             po_num: 1001,            
         },
         {
@@ -81,7 +81,7 @@ export class PurchaseOrdersListComponent  {
             vendor: 'Beautederm Head Office',
             amount: 100000,            
             payment_status: 'Paid',            
-            order_status: 'Recieved',
+            order_status: 'Delivered',
             po_num: 1001,            
         },
         {
@@ -89,7 +89,7 @@ export class PurchaseOrdersListComponent  {
             vendor: 'Beautederm Head Office',
             amount: 100000,            
             payment_status: 'Paid',            
-            order_status: 'Recieved',
+            order_status: 'Pending',
             po_num: 1001,            
         },
         {
@@ -97,7 +97,7 @@ export class PurchaseOrdersListComponent  {
             vendor: 'Kath Ong - BeauteFinds',
             amount: 100000,            
             payment_status: 'Paid',            
-            order_status: 'Recieved',
+            order_status: 'Pending',
             po_num: 1001,            
         },        
     ]  

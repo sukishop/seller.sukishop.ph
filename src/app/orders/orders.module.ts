@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProductsRoutingModule } from './products-routing.module';
+import { OrdersRoutingModule } from './orders-routing.module';
 import { QuillModule } from 'ngx-quill';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
@@ -32,15 +32,16 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
-import { ProductsListComponent } from './products-list.component';
-import { ProductComponent } from './product.component';
-import { ProductAddComponent } from './product-add.component';
+import { InvoiceComponent } from './invoice.component';
+import { OrdersListComponent } from './orders-list.component';
 
 const antdModule = [
     NzButtonModule,
     NzCardModule,
-    NzAvatarModule,
+    NzAvatarModule, 
     NzRateModule,
     NzBadgeModule,
     NzProgressModule,
@@ -61,27 +62,28 @@ const antdModule = [
     NzPaginationModule,
     NzDatePickerModule,
     NzCheckboxModule,
-    NzMessageModule
+    NzMessageModule,
+    NzDividerModule, 
+    NzInputNumberModule
 ]
 
 @NgModule({
     imports: [
         SharedModule,
         ReactiveFormsModule,
-        ProductsRoutingModule,
+        OrdersRoutingModule,
         QuillModule,
         ...antdModule
     ],
     declarations: [        
-        ProductsListComponent,
-        ProductComponent,
-        ProductAddComponent,
+        OrdersListComponent,
+        InvoiceComponent,        
     ],
     providers: [
         ThemeConstantService,
         AppsService,
         TableService
-    ] 
+    ]
 })
 
-export class ProductsModule {}
+export class OrdersModule {}

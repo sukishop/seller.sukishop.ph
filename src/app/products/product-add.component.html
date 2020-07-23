@@ -1,154 +1,4 @@
-<div class="page-header has-tab">
-    <div class="d-md-flex m-b-15 align-items-center justify-content-between">
-        <div class="media align-items-center m-b-15">
-            <nz-avatar nzShape="square" [nzSize]="70" nzSrc="assets/images/product/travel.jpg"></nz-avatar>
-            <div class="m-l-15">
-                <h4 class="m-b-0">{{productEditForm.controls.productName.value}}</h4>
-                <p class="text-muted m-b-0">Code: #5325</p>
-            </div>
-        </div>
-        <div class="m-b-15">
-            <button nz-button nzType="primary" *ngIf="!isEdit" (click)="edit()">
-                <i nz-icon nzType="edit" theme="outline"></i>
-                <span>Edit</span>
-            </button>
-            <button nz-button nzType="default" *ngIf="isEdit" (click)="save()">
-                <i nz-icon nzType="save" theme="outline"></i>
-                <span>Save</span>
-            </button>
-        </div>
-    </div>
-</div>
-<nz-tabset class="page-header-tab" *ngIf="!isEdit">
-    <nz-tab nzTitle="Overview">
-        <div class="row">
-            <div class="col-md-3">
-                <nz-card>
-                    <div class="media align-items-center">
-                        <i class="font-size-40 text-success" nz-icon nzType="smile" theme="outline"></i>
-                        <div class="m-l-15">
-                            <p class="m-b-0 text-muted">10 ratings</p>
-                            <nz-rate [ngModel]="4.5" nzDisabled></nz-rate>
-                        </div>
-                    </div>
-                </nz-card>
-            </div>
-            <div class="col-md-3">
-                <nz-card>
-                    <div class="media align-items-center">
-                        <i class="font-size-40 text-primary" nz-icon nzType="shopping-cart" theme="outline"></i>
-                        <div class="m-l-15">
-                            <p class="m-b-0 text-muted">Sales</p>
-                            <h3 class="m-b-0 ls-1">1,521</h3>
-                        </div>
-                    </div>
-                </nz-card>
-            </div>
-            <div class="col-md-3">
-                <nz-card>
-                    <div class="media align-items-center">
-                        <i class="font-size-40 text-primary" nz-icon nzType="message" theme="outline"></i>
-                        <div class="m-l-15">
-                            <p class="m-b-0 text-muted">Reviews</p>
-                            <h3 class="m-b-0 ls-1">27</h3>
-                        </div>
-                    </div>
-                </nz-card>
-            </div>
-            <div class="col-md-3">
-                <nz-card>
-                    <div class="media align-items-center">
-                        <i class="font-size-40 text-primary" nz-icon nzType="stock" theme="outline"></i>
-                        <div class="m-l-15">
-                            <p class="m-b-0 text-muted">Available Stock</p>
-                            <h3 class="m-b-0 ls-1">152</h3>
-                        </div>
-                    </div>
-                </nz-card>
-            </div>
-        </div>
-        <nz-card>
-            <h5>Basic Info</h5>
-            <table class="product-info-table m-t-20">
-                <tbody>
-                    <tr>
-                        <td>Price:</td>
-                        <td class="text-dark font-weight-semibold">${{productEditForm.controls.price.value}}.00</td>
-                    </tr>
-                    <tr>
-                        <td>Category:</td>
-                        <td>{{productEditForm.controls.category.value}}</td>
-                    </tr>
-                    <tr>
-                        <td>Brand:</td>
-                        <td>{{productEditForm.controls.brand.value}}</td>
-                    </tr>
-                    <tr>
-                        <td>Tax Rate:</td>
-                        <td>10%</td>
-                    </tr>
-                    <tr>
-                        <td>Status:</td>
-                        <td>
-                            <nz-tag *ngIf="productEditForm.controls.status.value == 'In Stock'" [nzColor]="'cyan'">{{productEditForm.controls.status.value}}</nz-tag>
-                            <nz-tag *ngIf="productEditForm.controls.status.value == 'Out of Stock'" [nzColor]="'red'">{{productEditForm.controls.status.value}}</nz-tag>
-                            <nz-tag *ngIf="productEditForm.controls.status.value == 'Pending'" [nzColor]="'gold'">{{productEditForm.controls.status.value}}</nz-tag>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> 
-        </nz-card>
-        <nz-card>
-            <h5>Option Info</h5>
-            <table class="product-info-table m-t-20">
-                <tbody>
-                    <tr>
-                        <td>Sizes:</td>
-                        <td>{{productEditForm.controls.size.value}}</td>
-                    </tr>
-                    <tr>
-                        <td>Colors:</td>
-                        <td>
-                            <span class="m-r-20" *ngFor="let item of productEditForm.controls.colors.value">
-                                <span class="product-color">
-                                    <nz-badge *ngIf="item == 'Dark Blue'" nzStatus="default" nzColor="#4c4e69"></nz-badge>
-                                    <nz-badge *ngIf="item == 'Gray'" nzStatus="default" nzColor="#868686"></nz-badge>
-                                    <nz-badge *ngIf="item == 'Gray Blue'" nzStatus="default" nzColor="#8498c7"></nz-badge>
-                                </span>
-                                <span>{{item}}</span>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fit:</td>
-                        <td>{{productEditForm.controls.fit.value}} Fit</td>
-                    </tr>
-                    <tr>
-                        <td>Material:</td>
-                        <td>{{productEditForm.controls.material.value}}</td>
-                    </tr>
-                    <tr>
-                        <td>Ship From:</td>
-                        <td>{{productEditForm.controls.shipFrom.value}}</td>
-                    </tr>
-                </tbody>
-            </table> 
-        </nz-card>
-        <nz-card nzTitle="Product Description">
-            <div [innerHTML]="productEditForm.controls.description.value"></div>
-        </nz-card>    
-    </nz-tab>
-    <nz-tab nzTitle="Product Images">
-        <nz-card>
-            <div class="row">
-                <div *ngFor="let item of fileList" class="col-md-3">
-                    <img class="img-fluid" [src]="item.url == null ? 'assets/images/others/local-image.jpg' : item.url" [alt]="item.name">
-                </div>
-            </div>
-        </nz-card>
-    </nz-tab>
-</nz-tabset>
-<form nz-form nzLayout="vertical" [formGroup]="productEditForm" *ngIf="isEdit">
+<form nz-form nzLayout="vertical" [formGroup]="productEditForm" >
     <nz-tabset class="page-header-tab">
         <nz-tab nzTitle="Basic Info">
             <nz-card>
@@ -173,10 +23,9 @@
                     <nz-form-label nzFor="category">Category</nz-form-label>
                     <nz-form-control nzErrorTip="Please input this field!">
                         <nz-select formControlName="category" class="w-100">
-                            <nz-option nzLabel="Cloths" nzValue="Cloths"></nz-option>
-                            <nz-option nzLabel="Home Decoration" nzValue="Home Decoration"></nz-option>
-                            <nz-option nzLabel="Eletronic" nzValue="Eletronic"></nz-option>
-                            <nz-option nzLabel="Jewellery" nzValue="Jewellery"></nz-option>
+                            <nz-option nzLabel="Facial Care" nzValue="Cloths"></nz-option>
+                            <nz-option nzLabel="Body Care" nzValue="Home Decoration"></nz-option>
+                            <nz-option nzLabel="Make-up" nzValue="Eletronic"></nz-option>                            
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -282,4 +131,8 @@
             </nz-card>
         </nz-tab>
     </nz-tabset>  
+    <button nz-button nzType="primary" (click)="save()">
+        <i nz-icon nzType="save" theme="outline"></i>
+        <span>Save</span>
+    </button>
 </form>  

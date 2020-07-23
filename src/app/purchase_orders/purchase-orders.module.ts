@@ -32,17 +32,20 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 import { PurchaseOrdersListComponent } from './purchase-orders-list.component';
 import { PurchaseOrderComponent } from './purchase-order.component';
+import { PurchaseOrderViewComponent } from './purchase-order-view.component';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 import { InputVendorDropdownMenuComponent } from './includes/input-vendor';
+import { InputProductDropdownMenuComponent } from './includes/input-product';
 
 const antdModule = [
     NzButtonModule,
     NzCardModule,
-    NzAvatarModule,
+    NzAvatarModule, 
     NzRateModule,
     NzBadgeModule,
     NzProgressModule,
@@ -64,7 +67,8 @@ const antdModule = [
     NzDatePickerModule,
     NzCheckboxModule,
     NzMessageModule,
-    NzDividerModule
+    NzDividerModule, 
+    NzInputNumberModule
 ]
 
 @NgModule({
@@ -78,7 +82,9 @@ const antdModule = [
     declarations: [        
         PurchaseOrdersListComponent,
         PurchaseOrderComponent,
-        InputVendorDropdownMenuComponent,        
+        PurchaseOrderViewComponent,
+        InputVendorDropdownMenuComponent,
+        InputProductDropdownMenuComponent        
     ],
     providers: [
         ThemeConstantService,

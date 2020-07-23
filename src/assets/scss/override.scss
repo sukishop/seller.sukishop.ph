@@ -1,0 +1,22 @@
+.purchase-order {
+       input, 
+       nz-input-number, 
+       nz-product-select-custom-dropdown-menu {
+           width: 100%;
+           display: block;
+       } 
+       nz-vendor-select-custom-dropdown-menu {
+           width: 60%
+       }
+       form { 
+           width: 100% 
+        }
+        
+}
+.cdk-overlay-container {
+    .add-item {
+        margin-top: -10px;
+        padding-bottom: 20px;
+        float: right; 
+   }    
+}

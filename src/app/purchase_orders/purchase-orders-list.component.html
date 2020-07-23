@@ -20,14 +20,14 @@
                 <div class="m-b-10 m-r-20 d-flex align-items-center">
                     <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status" [(ngModel)]="selectedStatus" (ngModelChange)="statusChange($event)">
                         <nz-option nzLabel="All" nzValue="All"></nz-option>
-                        <nz-option nzLabel="Recieved" nzValue="Recieved"></nz-option>
-                        <nz-option nzLabel="Unrecieved" nzValue="Unrecieved"></nz-option>
+                        <nz-option nzLabel="Delivered" nzValue="Delivered"></nz-option>
+                        <nz-option nzLabel="Pending" nzValue="Pending"></nz-option>
                     </nz-select>
                 </div>
             </div>          
         </div>
         <div class="col-lg-4 text-right">
-            <a nz-button nzType="primary" [routerLink]="['/purchase-orders/view']">
+            <a nz-button nzType="primary" [routerLink]="['/purchase-orders/add']">
                 <i nz-icon nzType="plus-circle" theme="outline"></i>
                 <span>Add Purchase Order</span>
             </a>
@@ -45,7 +45,7 @@
                 <td>{{item.po_num}}</td>
                 <td>
                     <div class="d-flex align-items-center">                        
-                        <span class="m-l-10"><a [routerLink]="['/products/view']">{{item.vendor}}</a></span>
+                        <span class="m-l-10"><a [routerLink]="['/purchase-orders/view']">{{item.vendor}}</a></span>
                     </div>
                 </td>                
                 <td>₱{{item.amount | number:'3.2-5'}}</td>                
@@ -55,21 +55,21 @@
                     <span class="text-capitalize">{{item.payment_status}}</span>
                 </td>
                 <td>
-                    <nz-badge *ngIf="item.status == 'recieved'" nzStatus="success"></nz-badge>
-                    <nz-badge *ngIf="item.status == 'unrecieved'" nzStatus="error"></nz-badge>
+                    <nz-badge *ngIf="item.order_status == 'Delivered'" nzStatus="success"></nz-badge>
+                    <nz-badge *ngIf="item.order_status == 'Pending'" nzStatus="error"></nz-badge>
                     <span class="text-capitalize">{{item.order_status}}</span>
-                </td>
+                </td> 
                 <td class="text-md-right">
-                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit" [routerLink]="['/products/view']">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit" [routerLink]="['/purchase-orders/view']">
                         <i nz-icon nzType="edit" theme="outline"></i>
                     </a>                    
                     <button class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete">
                         <i nz-icon nzType="delete" theme="outline"></i>
                     </button>                    
-                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="clone" [routerLink]="['/products/view']">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="clone" [routerLink]="['/purchase-orders/view']">
                         <i nz-icon nzType="copy" theme="outline"></i>
                     </a>
-                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Print" [routerLink]="['/products/view']">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Print" [routerLink]="['/purchase-orders/view']">
                         <i nz-icon nzType="printer" theme="outline"></i>
                     </a>
                 </td>

@@ -2,5 +2,6 @@
 @import url('../node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css');
 @import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 @import './assets/scss/app.scss';
+@import './assets/scss/override.scss';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

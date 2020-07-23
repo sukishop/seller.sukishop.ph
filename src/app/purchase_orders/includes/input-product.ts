@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'nz-vendor-select-custom-dropdown-menu',
+  selector: 'nz-product-select-custom-dropdown-menu',
   template: `
-    <nz-select nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="Select Vendor">
+    <nz-select nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="Select Product">
       <nz-option *ngFor="let item of listOfItem" [nzLabel]="item" [nzValue]="item"></nz-option>
     </nz-select>
     <ng-template #renderTemplate>
       <nz-divider></nz-divider>
       <div class="container">        
-        <a class="add-item float-right"><i nz-icon nzType="plus"></i> Add New Vendor</a>
+        <a class="add-item"><i nz-icon nzType="plus"></i> Add New Product</a>
       </div>
     </ng-template>
   `,  
 })
-export class InputVendorDropdownMenuComponent {
-  listOfItem = ['Kath Ong - BeauteFinds', 'Beautederm Head Office'];
+export class InputProductDropdownMenuComponent {
+    listOfItem = ['Travel Set', 'Trial Set', 'Regular Set', 'Premium Set'];
   index = 0;
   addItem(input: HTMLInputElement): void {
     const value = input.value;
