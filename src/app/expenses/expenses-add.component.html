@@ -1,0 +1,21 @@
+<form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Expense Name!">
+        <nz-input-group nzPrefixIcon="edit">
+            <input nz-input placeholder="Name"  />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Amount!">
+        <nz-input-group nzPrefixIcon="currency">
+           <input nz-input placeholder="Amount"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <!-- <button nz-button [nzSize]="size" nzType="primary">Primary </button> -->
+      </nz-form-control>
+    </nz-form-item>
+</form>

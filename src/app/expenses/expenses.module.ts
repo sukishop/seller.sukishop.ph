@@ -34,6 +34,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { ExpensesListComponent } from './expenses-list.component';
+import { ExpensesAddComponent } from './expenses-add.component';
 
 const antdModule = [
     NzButtonModule,
@@ -71,7 +72,7 @@ const antdModule = [
         ...antdModule
     ],
     declarations: [        
-        ExpensesListComponent,        
+        ExpensesListComponent, ExpensesAddComponent,        
     ],
     providers: [
         ThemeConstantService,

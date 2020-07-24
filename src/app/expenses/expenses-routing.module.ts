@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ExpensesListComponent } from './expenses-list.component';
-
+import { ExpensesAddComponent }  from './expenses-add.component';
 const routes: Routes = [
     {
         path: '',
@@ -12,7 +12,16 @@ const routes: Routes = [
             headerDisplay: "none"
         }
         
-    },       
+    },
+    {
+        path: 'add',
+        component: ExpensesAddComponent,
+        data: {
+            title: 'Add Expenses',
+            headerDisplay: "none"
+        }
+        
+    },           
 ];
 
 @NgModule({
