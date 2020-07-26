@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
     <ng-template #renderTemplate>
       <nz-divider></nz-divider>
       <div class="container">        
-        <a class="add-item"><i nz-icon nzType="plus"></i> Add New Product</a>
+        <a class="add-item" [routerLink]="['/products/add']"><i nz-icon nzType="plus"></i> Add New Product</a>
       </div>
-    </ng-template>
+    </ng-template>   
   `,  
 })
 export class InputProductDropdownMenuComponent {

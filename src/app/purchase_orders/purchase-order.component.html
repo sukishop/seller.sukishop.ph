@@ -1,50 +1,83 @@
+<ng-template #product>    
+    <div class="row ng-star-inserted">                     
+        <div class="col-md-4">             
+            <nz-form-item>                        
+                <i nz-icon nzType="minus-circle-o" theme="outline" class="m-h-25" (click)="removeItem()"></i>                   
+                <nz-form-label>Product</nz-form-label>
+                <nz-product-select-custom-dropdown-menu></nz-product-select-custom-dropdown-menu>                        
+            </nz-form-item>  
+        </div> 
+        <div class="col-md-2">   
+            <nz-form-item>
+                <nz-form-label>Qty</nz-form-label> 
+                <nz-input-number [nzMin]="1" [nzStep]="1"></nz-input-number>
+            </nz-form-item>      
+        </div>     
+        <div class="col-md-2">                                       
+            <nz-form-item>
+                <nz-form-label>Cost Per Unit</nz-form-label> 
+                <input type="text" nz-input placeholder="Price" />            
+            </nz-form-item>               
+        </div>         
+        <div class="col-md-4">                                       
+            <nz-form-item>                
+                <nz-form-label>Amount</nz-form-label>
+                <input type="text" nz-input placeholder="Sub Total" disabled />                       
+            </nz-form-item>            
+        </div>    
+    </div>
+</ng-template>   
+
 <div class="container purchase-order">
     <nz-card nzTitle="Add Purchase Order">
         <div class="media align-items-center"> 
-            <form nz-form style="width: 100%;">
+            <form nz-form style="width: 100%;"> 
                 <nz-form-item>        
                     <nz-form-label>Vendor</nz-form-label>
                     <nz-vendor-select-custom-dropdown-menu></nz-vendor-select-custom-dropdown-menu>                        
                 </nz-form-item>
-                <hr class="m-v-25 ng-star-inserted">                
-                <div class="row ng-star-inserted">
-                    <div class="col-md-4"> 
-                        <nz-form-item>        
-                            <nz-form-label>Product</nz-form-label> 
-                            <nz-product-select-custom-dropdown-menu></nz-product-select-custom-dropdown-menu>                        
-                        </nz-form-item>  
-                    </div> 
-                    <div class="col-md-2">   
-                        <nz-form-item>
-                            <nz-form-label>Qty</nz-form-label> 
-                            <nz-input-number [nzMin]="1" [nzStep]="1"></nz-input-number>
-                        </nz-form-item>      
-                    </div>    
-                    <div class="col-md-2">                                       
-                        <nz-form-item>
-                            <nz-form-label>Cost Per Unit</nz-form-label> 
-                            <input type="text" nz-input placeholder="Price" />            
-                        </nz-form-item>               
-                    </div>        
-                    <div class="col-md-4">                                       
-                        <nz-form-item>
-                            <nz-form-label>Amount</nz-form-label>
-                            <input type="text" nz-input placeholder="Sub Total" disabled />       
-                        </nz-form-item>              
-                    </div>    
+                <hr class="m-v-25 ng-star-inserted">                     
+                <div>
+                    <div class="row ng-star-inserted">                     
+                        <div class="col-md-4">                          
+                            <nz-form-item>        
+                                <nz-form-label>Product</nz-form-label> 
+                                <nz-product-select-custom-dropdown-menu></nz-product-select-custom-dropdown-menu>                        
+                            </nz-form-item>                              
+                        </div> 
+                        <div class="col-md-2">   
+                            <nz-form-item>
+                                <nz-form-label>Qty</nz-form-label> 
+                                <nz-input-number [nzMin]="1" [nzStep]="1"></nz-input-number>
+                            </nz-form-item>      
+                        </div>    
+                        <div class="col-md-2">                                       
+                            <nz-form-item>
+                                <nz-form-label>Cost Per Unit</nz-form-label> 
+                                <input type="text" nz-input placeholder="Price" />            
+                            </nz-form-item>               
+                        </div>        
+                        <div class="col-md-4">                                       
+                            <nz-form-item>
+                                <nz-form-label>Amount</nz-form-label>
+                                <input type="text" nz-input placeholder="Sub Total" disabled />       
+                            </nz-form-item>              
+                        </div>    
+                    </div>
                 </div>
+                <ng-container #container></ng-container>
                 <div class="row"> 
-                    <div class="col-md-4">                         
-                        <a class="small">
-                            <i nz-icon nzType="plus-circle" theme="outline"></i>
-                            &nbsp;<span>Add Item</span>
-                        </a>
+                    <div class="col-md-4">                                                 
+                        <button nz-button [nzType]="'dashed'" (click)="addItem()">
+                            <i nz-icon nzType="plus" theme="outline"></i> 
+                            <span>Add Item</span>
+                          </button>
                     </div>                 
                     <div class="col-md-4"></div> 
                     <div class="col-md-4">    
                         <h3><span class="font-weight-semibold text-dark">Total :</span> ₱0.00</h3>
                     </div>                    
-                </div>
+                </div>               
                 <hr class="m-v-25 ng-star-inserted">              
                 <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Submit</button>        
             </form>
