@@ -1,21 +1,39 @@
-<form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Expense Name!">
-        <nz-input-group nzPrefixIcon="edit">
-            <input nz-input placeholder="Name"  />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Amount!">
-        <nz-input-group nzPrefixIcon="currency">
-           <input nz-input placeholder="Amount"/>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <!-- <button nz-button [nzSize]="size" nzType="primary">Primary </button> -->
-      </nz-form-control>
-    </nz-form-item>
-</form>
+<div class="container purchase-order">
+  <nz-card nzTitle="Add Expenses">
+      <div class="media align-items-center">
+        <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your Expense Name!">
+                <nz-input-group nzPrefixIcon="edit">
+                    <input nz-input formControlName="name" placeholder="Name"  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your Amount!">
+                <nz-input-group nzPrefixIcon=""> 
+                  <input nz-input formControlName="amount" placeholder="Amount"/>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your Amount!">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person" formControlName="category">
+                    <nz-option 
+                    *ngFor="let category of categories"
+                      nzLabel="{{category.expense_category_name}}"
+                      nzValue="{{category.id}}"
+                    >
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>  
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button nzType="primary" [nzSize]="size" nzShape="round"><i nz-icon nzType="check" nzTheme="outline"></i>Create</button>
+              </nz-form-control>
+            </nz-form-item>
+        </form>
+      </div>
+  </nz-card>
+</div>
