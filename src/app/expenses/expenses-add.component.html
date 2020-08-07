@@ -12,13 +12,13 @@
             <nz-form-item>
               <nz-form-control nzErrorTip="Please input your Amount!">
                 <nz-input-group nzPrefixIcon=""> 
-                  <input nz-input formControlName="amount" placeholder="Amount"/>
+                  <input nz-input formControlName="amount" placeholder="₱ Amount" [nzMin]="1" [nzMax]="100000" type="number"/>
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your Amount!">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person" formControlName="category">
+              <nz-form-control nzErrorTip="Please Select Category!">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category" formControlName="expense_category_id">
                     <nz-option 
                     *ngFor="let category of categories"
                       nzLabel="{{category.expense_category_name}}"
@@ -26,11 +26,23 @@
                     >
                   </nz-option>
                 </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please Select Category!">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Account" formControlName="account_id">
+                    <nz-option 
+                    *ngFor="let account of accounts"
+                      nzLabel="{{account.account_name}}"
+                      nzValue="{{account.id}}"
+                    >
+                  </nz-option>
+                </nz-select>
               </nz-form-control>  
             </nz-form-item>
             <nz-form-item>
               <nz-form-control>
-                <button nz-button nzType="primary" [nzSize]="size" nzShape="round"><i nz-icon nzType="check" nzTheme="outline"></i>Create</button>
+                <button nz-button nzType="primary" [nzSize]="size" nzShape="round"  [nzLoading]="isLoading" ><i nz-icon nzType="check" nzTheme="outline"></i>Create</button>
               </nz-form-control>
             </nz-form-item>
         </form>
