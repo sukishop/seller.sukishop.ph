@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd';
+import { Component, ElementRef, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { UploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
     templateUrl: './purchase-order.component.html'
@@ -10,5 +7,16 @@ import { UploadFile } from 'ng-zorro-antd/upload';
 
 export class PurchaseOrderComponent  {
     validateForm: FormGroup;
-    
+    @ViewChild('container', {read:ViewContainerRef}) container;
+    @ViewChild('product') template: TemplateRef<any>;    
+
+    addItem() {        
+        this.container.createEmbeddedView(this.template);
+    }  
+
+    removeItem() { 
+        this.container.remove();        
+    }
+   
+     
 }
