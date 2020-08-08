@@ -8,15 +8,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PurchaseOrderComponent  {
     validateForm: FormGroup;
     @ViewChild('container', {read:ViewContainerRef}) container;
-    @ViewChild('product') template: TemplateRef<any>;    
+    @ViewChild('product') template: TemplateRef<any>;
 
-    addItem() {        
+    addItem() {
         this.container.createEmbeddedView(this.template);
-    }  
-
-    removeItem() { 
-        this.container.remove();        
     }
-   
-     
+
+    removeItem(e) {
+        let elem = e.target;
+        for (; elem && elem !== document; elem = elem.parentNode) {
+            if (elem.matches('.row.ng-star-inserted')) {
+                elem.parentNode.removeChild(elem);
+            }
+        }
+    }
+
+
 }

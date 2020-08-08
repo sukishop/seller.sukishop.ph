@@ -97,13 +97,13 @@ export class AuthenticationService {
     // Returns true if token is present
     get isLoggedIn(): boolean {
         const token = localStorage.getItem('token');
-        return (token && token !== null) ? true : false;
+        return (token && token !== 'null') ? true : false;
     }
 
     // Returns true if user is present
     get hasUserData(): boolean {
         const user = JSON.parse(localStorage.getItem('user'));
-        return (user !== null) ? true : false;
+        return (user && user !== 'null') ? true : false;
     }
 
     // Sign in with Google
