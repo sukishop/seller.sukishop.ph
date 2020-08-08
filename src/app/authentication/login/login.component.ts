@@ -22,7 +22,6 @@ export class LoginComponent {
     }
 
     submitForm(): void {
-        // this.router.navigateByUrl('/dashboard');
         for (const i in this.loginForm.controls) {
             this.loginForm.controls[i].markAsDirty();
             this.loginForm.controls[i].updateValueAndValidity();
