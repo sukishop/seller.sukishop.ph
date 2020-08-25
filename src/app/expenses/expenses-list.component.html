@@ -62,9 +62,12 @@
                 <div class="m-b-10 m-r-20 d-flex align-items-center">
                     <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange($event)">
                         <nz-option nzLabel="All" nzValue="All"></nz-option>
-                        <nz-option nzLabel="Operational Expenses" nzValue="Operational Expenses"></nz-option>
-                        <nz-option nzLabel="Personal Expenses" nzValue="Personal Expenses"></nz-option>
-                        <nz-option nzLabel="Shipping Expenses" nzValue="Shipping Expenses"></nz-option>
+                        <nz-option 
+                        *ngFor="let category of categories"
+                            nzLabel="{{category.expense_category_name}}"
+                            nzValue="{{category.id}}"
+                        >
+                        </nz-option>
                     </nz-select>
                 </div>                
             </div>          
@@ -76,14 +79,14 @@
             </a>
         </div>
     </div>
-    <nz-table #expensesListTable [nzData]="displayData">
+    <nz-table #expensesListTable [nzData]="displayData" [nzFrontPagination] ="false">
         <thead>
             <tr>
                 <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of expensesListTable.data;  let i=index">
+            <tr *ngFor="let item of displayData;  let i=index">
                 <td>#{{item.id}}</td>
                 <td>
                     <div class="d-flex align-items-center">                        
@@ -91,12 +94,12 @@
                     </div>
                 </td>
                 <td>₱{{item.amount | number:'3.2-5'}}</td>
-                <td>{{item.date}}</td>
+                <td>{{item.created_at}}</td>
                 <td>
-                    {{item.category}}  
+                    {{item.expense_category.expense_category_name}}  
                 </td>
                 <td>                    
-                    <span class="text-capitalize">{{item.account}}</span>
+                    <span class="text-capitalize">{{item.account.account_name}}</span>
                 </td>
                 <td class="text-md-right">
                     <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit" [routerLink]="'#'">
@@ -105,6 +108,11 @@
                     <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete">
                         <i nz-icon nzType="delete" theme="outline"></i>
                     </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ng-template #totalTemplate let-total> Total {{ totalList.total }} items </ng-template>
                 </td>
             </tr>
         </tbody>

@@ -10,11 +10,9 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your Amount!">
-                <nz-input-group nzPrefixIcon=""> 
-                  <input nz-input formControlName="amount" placeholder="₱ Amount" [nzMin]="1" [nzMax]="100000" type="number"/>
-                </nz-input-group>
-              </nz-form-control>
+              <nz-form-control nzErrorTip="Please Select Category!">
+                <nz-input-number type="number" formControlName="amount" [nzMin]="1" [nzMax]="1000000" [nzStep]="0.01" [nzPlaceHolder]="amountPlaceHolder"></nz-input-number>
+              </nz-form-control>  
             </nz-form-item>
             <nz-form-item>
               <nz-form-control nzErrorTip="Please Select Category!">
@@ -41,11 +39,17 @@
               </nz-form-control>  
             </nz-form-item>
             <nz-form-item>
+              <input nz-button type="file"(change)="onFileSelected($event)">  
+            </nz-form-item>
+            <nz-form-item>
               <nz-form-control>
                 <button nz-button nzType="primary" [nzSize]="size" nzShape="round"  [nzLoading]="isLoading" ><i nz-icon nzType="check" nzTheme="outline"></i>Create</button>
               </nz-form-control>
             </nz-form-item>
+            
+            <input nz-input type="text" formControlName="image" name="[(uploadResponse)]" hidden id="">
         </form>
+        
       </div>
   </nz-card>
 </div>

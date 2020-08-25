@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TableService } from '../shared/services/table.service';
+import { ExpensesService } from '../shared/services/expenses.service';
+import { filter  } from 'rxjs/operators';
 
 interface DataItem {
     id: number;
@@ -20,7 +22,9 @@ export class ExpensesListComponent  {
     selectedStatus: string;
     searchInput: any;
     displayData = [];
-
+    expensesList = [];
+    categories = [];
+    totalList = '';
     orderColumn = [
         {
             title: 'ID',
@@ -51,91 +55,15 @@ export class ExpensesListComponent  {
         }
     ]
 
-    expensesList = [
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-    ]  
     
-    constructor(private tableSvc : TableService) {
-        this.displayData = this.expensesList
+    
+    constructor(private tableSvc : TableService, private expenseService: ExpensesService) {
+        this.getAll();
+        this.getCategory();
+        this.displayData = this.expensesList;
+        // console.log(this.displayData)
+        // this.totalList = this.totalList.total;
+
     }
 
     search(): void {
@@ -144,7 +72,18 @@ export class ExpensesListComponent  {
     }
 
     categoryChange(value: string): void {
-        const data = this.expensesList
-        value !== 'All'? this.displayData = data.filter(elm => elm.category === value) : this.displayData = data
+        const data = this.expensesList;
+        value !== 'All'? this.displayData = data.filter(elm => elm.expense_category_id == value) : this.displayData = data
     }
+
+    getAll() {
+       this.expenseService.getList()
+        .subscribe(list => {this.expensesList = list['data'],this.displayData = list['data'] ,this.totalList = list['meta']});
+    }
+
+    getCategory(): void{
+        this.expenseService.getCategories()
+       .subscribe(categories => this.categories = categories['data']);
+    }
+
 }    

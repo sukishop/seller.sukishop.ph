@@ -34,6 +34,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
+
 import { ExpensesListComponent } from './expenses-list.component';
 import { ExpensesAddComponent } from './expenses-add.component';
 
@@ -62,7 +63,7 @@ const antdModule = [
     NzDatePickerModule,
     NzCheckboxModule,
     NzMessageModule,
-    NzInputNumberModule
+    NzInputNumberModule,
 ]
 
 @NgModule({
