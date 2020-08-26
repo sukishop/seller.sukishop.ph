@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableService } from '../shared/services/table.service';
 import { ExpensesService } from '../shared/services/expenses.service';
-import { filter  } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
+
+
+
 
 interface DataItem {
     id: number;
@@ -16,7 +19,7 @@ interface DataItem {
     templateUrl: './expenses-list.component.html'
 })
 
-export class ExpensesListComponent  {
+export class ExpensesListComponent implements OnInit  {
 
     selectedCategory: string;
     selectedStatus: string;
@@ -58,17 +61,25 @@ export class ExpensesListComponent  {
     
     
     constructor(private tableSvc : TableService, private expenseService: ExpensesService) {
-        this.getAll();
-        this.getCategory();
-        this.displayData = this.expensesList;
+       
+
         // console.log(this.displayData)
         // this.totalList = this.totalList.total;
-
+       
+    }
+    ngOnInit(): void {
+        
+        this.getCategory();
+        this.getAll();
+       
+        
+        
     }
 
     search(): void {
-        const data = this.expensesList
-        this.displayData = this.tableSvc.search(this.searchInput, data )
+        this.expenseService.searchByName(this.searchInput)
+        .subscribe(result => {this.displayData = result['data']}) 
+        // debounce doesn't work */
     }
 
     categoryChange(value: string): void {
@@ -86,4 +97,5 @@ export class ExpensesListComponent  {
        .subscribe(categories => this.categories = categories['data']);
     }
 
+   
 }    

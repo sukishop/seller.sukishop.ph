@@ -93,7 +93,7 @@
                         <span class="m-l-10"><a [routerLink]="['#']">{{item.name}}</a></span>
                     </div>
                 </td>
-                <td>₱{{item.amount | number:'3.2-5'}}</td>
+                <td>₱{{item.amount}}</td>
                 <td>{{item.created_at}}</td>
                 <td>
                     {{item.expense_category.expense_category_name}}  
@@ -112,7 +112,7 @@
             </tr>
             <tr>
                 <td>
-                    <ng-template #totalTemplate let-total> Total {{ totalList.total }} items </ng-template>
+                    <!-- <ng-template #totalTemplate let-total> Total {{ totalList.total }} items </ng-template> -->
                 </td>
             </tr>
         </tbody>
