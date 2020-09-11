@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { ExpensesService } from '../shared/services/expenses.service'
-import { expensesCategory } from '../models/expenseCategory';
-import { account } from '../models/account'
 import {Location} from '@angular/common';
-import { UploadChangeParam } from 'ng-zorro-antd/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { UploadFile } from 'ng-zorro-antd/upload';
+import { expensesCategory } from '../shared/interfaces/expense';
+import { account } from '../shared/interfaces/expense';
+
 @Component({
   selector: 'app-expenses-add',
   templateUrl: './expenses-add.component.html',

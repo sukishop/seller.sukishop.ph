@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TableService } from '../shared/services/table.service';
 import { ExpensesService } from '../shared/services/expenses.service';
-import { debounceTime, tap } from 'rxjs/operators';
-
-
-
+import { Observable } from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+ import { expense, expensesCategory } from '../shared/interfaces/expense'
+ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 interface DataItem {
     id: number;
@@ -21,75 +21,38 @@ interface DataItem {
 
 export class ExpensesListComponent implements OnInit  {
 
-    selectedCategory: string;
+    selectedCategory: number;
     selectedStatus: string;
+    filterCategory=  [
+        { text: 'dasd', value: '2' },
+        { text: 'cat1', value: '1' }
+    ];
     searchInput: any;
-    displayData = [];
-    expensesList = [];
-    categories = [];
-    totalList = '';
-    orderColumn = [
-        {
-            title: 'ID',
-            compare: (a: DataItem, b: DataItem) => a.id - b.id,
-        },        
-        {
-            title: 'Name',
-            compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
-        },
-        {
-            title: 'Amount',
-            compare: (a: DataItem, b: DataItem) => a.amount - b.amount,
-        },
-        {
-            title: 'Date',
-            compare: (a: DataItem, b: DataItem) => a.expense_date.localeCompare(b.expense_date),
-        },
-        {
-            title: 'Category',
-            compare: (a: DataItem, b: DataItem) => a.category.localeCompare(b.category)
-        },       
-        {
-            title: 'Account',
-            compare: (a: DataItem, b: DataItem) => a.account.localeCompare(b.account),
-        },       
-        {
-            title: ''
-        }
-    ]
-
+    displayData: [];
+    expensesList: Observable<expense[]>;
+    categories: Observable<expensesCategory[]>;
+    totalList: number;
+    pageIndex = 1;
+    pageSize = 15;
+    loading = true;   
     
+  
+    constructor(private tableSvc : TableService, private expenseService: ExpensesService) {}
     
-    constructor(private tableSvc : TableService, private expenseService: ExpensesService) {
-       
-
-        // console.log(this.displayData)
-        // this.totalList = this.totalList.total;
-       
-    }
-    ngOnInit(): void {
-        
-        this.getCategory();
-        this.getAll();
-       
-        
-        
-    }
 
     search(): void {
         this.expenseService.searchByName(this.searchInput)
+        .pipe(
+                debounceTime(1000),
+                distinctUntilChanged(),
+        )
         .subscribe(result => {this.displayData = result['data']}) 
-        // debounce doesn't work */
     }
 
-    categoryChange(value: string): void {
-        const data = this.expensesList;
-        value !== 'All'? this.displayData = data.filter(elm => elm.expense_category_id == value) : this.displayData = data
-    }
-
-    getAll() {
-       this.expenseService.getList()
-        .subscribe(list => {this.expensesList = list['data'],this.displayData = list['data'] ,this.totalList = list['meta']});
+    ngOnInit(): void {
+        this.getCategory();
+        this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
+        
     }
 
     getCategory(): void{
@@ -97,5 +60,26 @@ export class ExpensesListComponent implements OnInit  {
        .subscribe(categories => this.categories = categories['data']);
     }
 
-   
+    onQueryParamsChange(params: NzTableQueryParams): void {
+        const { pageSize, pageIndex, sort, filter } = params;
+        const currentSort = sort.find(item => item.value !== null);
+        const sortField = (currentSort && currentSort.key) || null;
+        const sortOrder = (currentSort && currentSort.value) || null;
+        this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
+    }
+
+    loadDataFromServer(pageIndex: number, pageSize: number, sortField: string | null, sortOrder: string | null,
+        filter: Array<{ key: string; value: string[] }>): void {
+       console.log(filter)
+        this.expenseService.paginationList(pageIndex, pageSize, sortField, sortOrder, filter).subscribe(data => {
+            this.loading = false;
+            this.displayData = data['data'];
+            if (data){
+                this.totalList = data['total']
+            }
+            if(data['meta'].total){
+                this.totalList = data['meta'].total;
+            }  
+        });
+      }
 }    

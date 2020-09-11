@@ -58,18 +58,7 @@
                     <ng-template #prefixTemplate>
                         <i nz-icon nzType="search" class="opacity-05"></i>
                     </ng-template>   
-                </div>
-                <div class="m-b-10 m-r-20 d-flex align-items-center">
-                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange($event)">
-                        <nz-option nzLabel="All" nzValue="All"></nz-option>
-                        <nz-option 
-                        *ngFor="let category of categories"
-                            nzLabel="{{category.expense_category_name}}"
-                            nzValue="{{category.id}}"
-                        >
-                        </nz-option>
-                    </nz-select>
-                </div>                
+                </div>       
             </div>          
         </div>
         <div class="col-lg-4 text-right">
@@ -79,10 +68,24 @@
             </a>
         </div>
     </div>
-    <nz-table #expensesListTable [nzData]="displayData" [nzFrontPagination] ="false">
+    <nz-table #expensesListTable 
+        [nzData] = "displayData" 
+        [nzFrontPagination] = "false" 
+        [nzPageIndex]="pageIndex"
+        [nzTotal] = "totalList"
+        [nzPageSize]="pageSize"
+        [nzLoading]="loading"
+        (nzQueryParams)="onQueryParamsChange($event)"
+    >
         <thead>
             <tr>
-                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th>
+                <!-- <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th> -->
+                <th></th>
+                <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th nzColumnKey="expense_category_id" [nzFilters]="filterCategory" [nzFilterFn]="true" >Category</th>
+                <th>Account</th>
             </tr>
         </thead>
         <tbody>
@@ -109,12 +112,7 @@
                         <i nz-icon nzType="delete" theme="outline"></i>
                     </button>
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    <!-- <ng-template #totalTemplate let-total> Total {{ totalList.total }} items </ng-template> -->
-                </td>
-            </tr>
         </tbody>
     </nz-table>
+    
 </nz-card>

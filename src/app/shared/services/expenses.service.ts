@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { expensesCategory } from '../../models/expenseCategory';
-import { expense } from '../../models/expense';
-import { account } from '../../models/account';
+import { expense } from '../interfaces/expense';
+import { account } from '../interfaces/expense';
 
-import { filter, map, flatMap, debounceTime, distinctUntilChanged, debounce, tap } from 'rxjs/operators';
+import { filter, map, flatMap, debounceTime, distinctUntilChanged, debounce, tap, catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +16,8 @@ export class ExpensesService {
   postExpenseUrl = 'http://business.test/v1/expense';
   postImageUrl = 'http://business.test/v1/expense/upload';
   searchByNameUrl = 'http://business.test/v1/expense/index?name=';
+  searchByCategoryUrl = 'http://business.test/v1/expense/index?expense_category_id=';
+  paginationUrl = "http://business.test/v1/expense/index?page="
   accounts: [];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -38,7 +40,6 @@ export class ExpensesService {
   }
   
   postImage(image: any):  Observable<any>{ 
-    
     return this.http.post(this.postImageUrl,image)
   }
   
@@ -48,7 +49,30 @@ export class ExpensesService {
 
   searchByName(name: string) : Observable<expense[]> {
     return this.http.get<expense[]>(this.searchByNameUrl+name).pipe(
-      debounceTime(1000),tap(val => console.log(val))
-    )
+      debounceTime(1000))
+    
   }
+
+
+  paginationList(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string | null,
+    sortOrder: string | null,
+    filters: Array<{ key: string; value: string[] }>
+  ): Observable<{ results: expense[] }> {
+    let params = new HttpParams()
+      .append('page', `${pageIndex}`)
+      .append('results', `${pageSize}`)
+      .append('sortField', `${sortField}`)
+      .append('sortOrder', `${sortOrder}`);
+      console.log(filters)
+    filters.forEach(filter => {
+      filter.value.forEach(value => {
+        params = params.append(filter.key, value);
+      });
+    });
+    return this.http.get<{ results: expense[] }>(`${this.expenseList}`, { params });
+  }
+  
 }
