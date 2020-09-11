@@ -3,8 +3,8 @@ import { TableService } from '../shared/services/table.service';
 import { ExpensesService } from '../shared/services/expenses.service';
 import { Observable } from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
- import { expense, expensesCategory } from '../shared/interfaces/expense'
- import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { expense, expensesCategory } from '../shared/interfaces/expense'
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 interface DataItem {
     id: number;
@@ -36,7 +36,11 @@ export class ExpensesListComponent implements OnInit  {
     pageSize = 15;
     loading = true;   
     
-  
+     // Todo 
+    // filter selection must be dynamic
+    // sorting on list of item
+    // times Stamps must be readable on the list
+
     constructor(private tableSvc : TableService, private expenseService: ExpensesService) {}
     
 

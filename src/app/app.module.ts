@@ -24,7 +24,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './shared/interceptor/token.interceptor';
-import { HttpClientModule } from '@angular/common/http';
+
 
 registerLocaleData(en);
 
@@ -45,7 +45,6 @@ registerLocaleData(en);
         NgChartjsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
-        HttpClientModule
     ],
     providers: [
         {

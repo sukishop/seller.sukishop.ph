@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExpensesRoutingModule } from './expenses-routing.module';
 import { QuillModule } from 'ngx-quill';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 import { AppsService } from '../shared/services/apps.service';
@@ -64,6 +65,7 @@ const antdModule = [
     NzCheckboxModule,
     NzMessageModule,
     NzInputNumberModule,
+    HttpClientModule
 ]
 
 @NgModule({
