@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { expensesCategory } from '../../models/expenseCategory';
+import { expensesCategory } from '../interfaces/expense';
 import { expense } from '../interfaces/expense';
 import { account } from '../interfaces/expense';
 
