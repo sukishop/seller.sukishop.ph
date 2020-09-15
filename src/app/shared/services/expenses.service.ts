@@ -66,12 +66,13 @@ export class ExpensesService {
       .append('results', `${pageSize}`)
       .append('sortField', `${sortField}`)
       .append('sortOrder', `${sortOrder}`);
-      console.log(filters)
+      // console.log(filters)
     filters.forEach(filter => {
       filter.value.forEach(value => {
         params = params.append(filter.key, value);
       });
     });
+    console.log(`${this.expenseList}`, { params });
     return this.http.get<{ results: expense[] }>(`${this.expenseList}`, { params });
   }
   

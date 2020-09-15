@@ -38,17 +38,15 @@ export class ExpensesListComponent implements OnInit  {
     
      // Todo 
     // filter selection must be dynamic
-    // sorting on list of item
     // times Stamps must be readable on the list
-
     constructor(private tableSvc : TableService, private expenseService: ExpensesService) {}
     
 
     search(): void {
         this.expenseService.searchByName(this.searchInput)
         .pipe(
-                debounceTime(1000),
-                distinctUntilChanged(),
+            debounceTime(1000),
+            distinctUntilChanged(),
         )
         .subscribe(result => {this.displayData = result['data']}) 
     }
@@ -72,9 +70,12 @@ export class ExpensesListComponent implements OnInit  {
         this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
     }
 
-    loadDataFromServer(pageIndex: number, pageSize: number, sortField: string | null, sortOrder: string | null,
+    loadDataFromServer(
+        pageIndex: number, 
+        pageSize: number, 
+        sortField: string | null, 
+        sortOrder: string | null,
         filter: Array<{ key: string; value: string[] }>): void {
-       console.log(filter)
         this.expenseService.paginationList(pageIndex, pageSize, sortField, sortOrder, filter).subscribe(data => {
             this.loading = false;
             this.displayData = data['data'];
@@ -84,6 +85,7 @@ export class ExpensesListComponent implements OnInit  {
             if(data['meta'].total){
                 this.totalList = data['meta'].total;
             }  
+
         });
       }
 }    
