@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TableService } from '../shared/services/table.service';
 import { ExpensesService } from '../shared/services/expenses.service';
 import { Observable } from 'rxjs';
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { expense, expensesCategory } from '../shared/interfaces/expense'
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
@@ -23,10 +23,7 @@ export class ExpensesListComponent implements OnInit  {
 
     selectedCategory: number;
     selectedStatus: string;
-    filterCategory=  [
-        { text: 'dasd', value: '2' },
-        { text: 'cat1', value: '1' }
-    ];
+    filterCategory = []
     searchInput: any;
     displayData: [];
     expensesList: Observable<expense[]>;
@@ -37,7 +34,6 @@ export class ExpensesListComponent implements OnInit  {
     loading = true;   
     
      // Todo 
-    // filter selection must be dynamic
     // times Stamps must be readable on the list
     constructor(private tableSvc : TableService, private expenseService: ExpensesService) {}
     
@@ -58,8 +54,18 @@ export class ExpensesListComponent implements OnInit  {
     }
 
     getCategory(): void{
-        this.expenseService.getCategories()
-       .subscribe(categories => this.categories = categories['data']);
+
+        this.expenseService.getCategories().pipe(map((value:any) => {
+
+            return value.data.map(res => {
+
+                return {text: res.expense_category_name, value: res.id};
+
+            })
+        }))
+
+       .subscribe(categories =>{this.filterCategory = categories;console.log(categories)});
+
     }
 
     onQueryParamsChange(params: NzTableQueryParams): void {

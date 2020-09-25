@@ -31,3 +31,7 @@ export interface pagination {
     perPage: number;
     currentPage: number;
 }
+
+export interface image {
+    filename: any;
+}

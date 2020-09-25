@@ -34,10 +34,12 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 
 import { ExpensesListComponent } from './expenses-list.component';
 import { ExpensesAddComponent } from './expenses-add.component';
+import { ExpenseDetailComponent } from './expense-detail.component';
 
 const antdModule = [
     NzButtonModule,
@@ -65,7 +67,9 @@ const antdModule = [
     NzCheckboxModule,
     NzMessageModule,
     NzInputNumberModule,
-    HttpClientModule
+    HttpClientModule,
+    NzDescriptionsModule,
+
 ]
 
 @NgModule({
@@ -77,7 +81,7 @@ const antdModule = [
         ...antdModule
     ],
     declarations: [        
-        ExpensesListComponent, ExpensesAddComponent,        
+        ExpensesListComponent, ExpensesAddComponent, ExpenseDetailComponent,        
     ],
     providers: [
         ThemeConstantService,
