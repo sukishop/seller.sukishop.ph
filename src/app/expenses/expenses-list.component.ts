@@ -31,10 +31,14 @@ export class ExpensesListComponent implements OnInit  {
     totalList: number;
     pageIndex = 1;
     pageSize = 15;
-    loading = true;   
-    
+    loading = true;
+    totalExpense: number;
+    totalMonth: number;
+    totalWeek: number;
+    totalToday: number;
      // Todo 
     // times Stamps must be readable on the list
+    // total expenses(month,day,week,overAll)
     constructor(private tableSvc : TableService, private expenseService: ExpensesService) {}
     
 
@@ -49,6 +53,7 @@ export class ExpensesListComponent implements OnInit  {
 
     ngOnInit(): void {
         this.getCategory();
+        this.totalExpenses();
         this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
         
     }
@@ -64,7 +69,7 @@ export class ExpensesListComponent implements OnInit  {
             })
         }))
 
-       .subscribe(categories =>{this.filterCategory = categories;console.log(categories)});
+       .subscribe(categories => this.filterCategory = categories);
 
     }
 
@@ -94,4 +99,21 @@ export class ExpensesListComponent implements OnInit  {
 
         });
       }
+
+    totalExpenses() {
+        /** Get all Expense */
+        this.expenseService.getAllExpenses()
+        .pipe(
+            map((res:any) =>{
+               return res.data.map( (data:any) => {
+                    return data.amount 
+                })
+            })
+        )
+        .subscribe(
+                res =>{
+                    const reducer = (total:number, amountValue:number) => total + amountValue;
+                    this.totalExpense = res.reduce(reducer)
+                })
+    }
 }    
