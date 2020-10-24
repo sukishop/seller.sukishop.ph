@@ -20,8 +20,9 @@ export class ExpensesService {
   expenseDetailUrl = "http://business.test/v1/expense/";
   imageUrl = "http://business.test/v1/file/image/";
   getAllWithOutMetaURl = "http://business.test/v1/expense/index?totalExpense=all";
-  getCUrrentMonthExpenses = "http://business.test/v1/expense/index?month";
-  getCurrentDayExpneses = "http://business.test/v1/expense/index?day";
+  getCurrentMonthExpense = "http://business.test/v1/expense/index?month";
+  getCurrentDayExpense = "http://business.test/v1/expense/index?day";
+  getCurrentWeekExpense = "http://business.test/v1/expense/index?week";
   accounts: [];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -94,13 +95,14 @@ export class ExpensesService {
   }
 
   getCurrentMonthExpenses(): Observable<expense> {
-    return this.http.get<expense>(this.getCUrrentMonthExpenses);
+    return this.http.get<expense>(this.getCurrentMonthExpense);
   }
 
-  getCurrentDayExpenses(): Observable<expense[]> {
-    return this.http.get<expense[]>(this.getCurrentDayExpneses);
+  getCurrentDayExpenses(): Observable<expense> {
+    return this.http.get<expense>(this.getCurrentDayExpense);
   }
 
-
-  
+  getCurrentWeekExpenses(): Observable<expense> {
+    return this.http.get<expense>(this.getCurrentWeekExpense);
+  }
 }

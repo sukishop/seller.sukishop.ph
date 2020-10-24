@@ -33,9 +33,9 @@ export class ExpensesListComponent implements OnInit  {
     pageSize = 15;
     loading = true;
     totalExpense: number;
-    totalExpensesCurrentMonth: number;
-    totalWeek: number;
-    totalExpensesCurrentDay: number;
+    totalCurrentMonthExpenses: number;
+    totalCurrentWeekExpenes: number;
+    totalCurrentDayExpenses: number;
      // Todo 
     // times Stamps must be readable on the list
     // total expenses(month,day,week,overAll)
@@ -56,6 +56,7 @@ export class ExpensesListComponent implements OnInit  {
         this.overAllExpenses();
         this.currentMonthExpenses();
         this.currentDayExpenses();
+        this.currentWeekExpenses();
         this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
         
     }
@@ -120,13 +121,27 @@ export class ExpensesListComponent implements OnInit  {
     currentMonthExpenses() {
         this.expenseService.getCurrentMonthExpenses().pipe(
             map((res:any) =>{
-                return res.map((data:any) => {
-                    return data.amount
-                })
-            })
+                return res.data.map( (data:any) => {
+                     return data.amount 
+                 })
+             })
         ).subscribe(res =>{
             const reducer = (total:number, amountValue:number) => total + amountValue;
-            this.totalExpensesCurrentMonth = res.reduce(reducer);
+            this.totalCurrentMonthExpenses = res.reduce(reducer);
+        })
+    }
+
+    currentWeekExpenses() {
+        this.expenseService.getCurrentWeekExpenses().pipe(
+            map((res:any) =>{
+                return res.data.map( (data:any) => {
+                     return data.amount 
+                 })
+             })
+        ).subscribe(res => {
+            const reducer = (total:number, amountValue:number) => total + amountValue;
+            this.totalCurrentWeekExpenes = res.reduce(reducer);
+            // console.log(res)
         })
     }
 
@@ -135,14 +150,13 @@ export class ExpensesListComponent implements OnInit  {
             
         ).pipe(
             map((res:any) =>{
-                console.log(res)
-                return res.map((data:any) => {
-                    return data.amount
-                })
-            })
+                return res.data.map( (data:any) => {
+                     return data.amount 
+                 })
+             })
         ).subscribe(res =>{
             const reducer = (total:number, amountValue:number) => total + amountValue;
-            this.totalExpensesCurrentDay = res.reduce(reducer);
+            this.totalCurrentDayExpenses = res.reduce(reducer);
         })
     }
 }    
