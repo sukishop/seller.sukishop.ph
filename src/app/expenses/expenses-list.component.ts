@@ -35,7 +35,7 @@ export class ExpensesListComponent implements OnInit  {
     totalExpense: number;
     totalExpensesCurrentMonth: number;
     totalWeek: number;
-    totalToday: number;
+    totalExpensesCurrentDay: number;
      // Todo 
     // times Stamps must be readable on the list
     // total expenses(month,day,week,overAll)
@@ -55,6 +55,7 @@ export class ExpensesListComponent implements OnInit  {
         this.getCategory();
         this.overAllExpenses();
         this.currentMonthExpenses();
+        this.currentDayExpenses();
         this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
         
     }
@@ -126,6 +127,22 @@ export class ExpensesListComponent implements OnInit  {
         ).subscribe(res =>{
             const reducer = (total:number, amountValue:number) => total + amountValue;
             this.totalExpensesCurrentMonth = res.reduce(reducer);
+        })
+    }
+
+    currentDayExpenses() {
+        this.expenseService.getCurrentDayExpenses(
+            
+        ).pipe(
+            map((res:any) =>{
+                console.log(res)
+                return res.map((data:any) => {
+                    return data.amount
+                })
+            })
+        ).subscribe(res =>{
+            const reducer = (total:number, amountValue:number) => total + amountValue;
+            this.totalExpensesCurrentDay = res.reduce(reducer);
         })
     }
 }    

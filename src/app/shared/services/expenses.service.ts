@@ -21,6 +21,7 @@ export class ExpensesService {
   imageUrl = "http://business.test/v1/file/image/";
   getAllWithOutMetaURl = "http://business.test/v1/expense/index?totalExpense=all";
   getCUrrentMonthExpenses = "http://business.test/v1/expense/index?month";
+  getCurrentDayExpneses = "http://business.test/v1/expense/index?day";
   accounts: [];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -95,5 +96,11 @@ export class ExpensesService {
   getCurrentMonthExpenses(): Observable<expense> {
     return this.http.get<expense>(this.getCUrrentMonthExpenses);
   }
+
+  getCurrentDayExpenses(): Observable<expense[]> {
+    return this.http.get<expense[]>(this.getCurrentDayExpneses);
+  }
+
+
   
 }
