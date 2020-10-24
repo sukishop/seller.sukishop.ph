@@ -33,7 +33,7 @@ export class ExpensesListComponent implements OnInit  {
     pageSize = 15;
     loading = true;
     totalExpense: number;
-    totalMonth: number;
+    totalExpensesCurrentMonth: number;
     totalWeek: number;
     totalToday: number;
      // Todo 
@@ -53,7 +53,8 @@ export class ExpensesListComponent implements OnInit  {
 
     ngOnInit(): void {
         this.getCategory();
-        this.totalExpenses();
+        this.overAllExpenses();
+        this.currentMonthExpenses();
         this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
         
     }
@@ -100,20 +101,34 @@ export class ExpensesListComponent implements OnInit  {
         });
       }
 
-    totalExpenses() {
+    overAllExpenses() {
         /** Get all Expense */
-        this.expenseService.getAllExpenses()
-        .pipe(
+        this.expenseService.getOverAllExpenses().pipe(
             map((res:any) =>{
                return res.data.map( (data:any) => {
                     return data.amount 
                 })
             })
         )
-        .subscribe(
-                res =>{
+        .subscribe(res =>{
                     const reducer = (total:number, amountValue:number) => total + amountValue;
                     this.totalExpense = res.reduce(reducer)
                 })
+    }
+
+    currentMonthExpenses() {
+        this.expenseService.getCurrentMonthExpenses().pipe(
+            map((res:any) =>{
+                return res.map((data:any) => {
+                    return data.amount
+                    // console.log(data.amount)
+                })
+                // console.log(res.map);
+            })
+        ).subscribe(res =>{
+            const reducer = (total:number, amountValue:number) => total + amountValue;
+            // console.log(res.reduce(reducer));
+            this.totalExpensesCurrentMonth = res.reduce(reducer);
+        })
     }
 }    

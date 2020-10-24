@@ -19,7 +19,8 @@ export class ExpensesService {
   paginationUrl = "http://business.test/v1/expense/index?page=";
   expenseDetailUrl = "http://business.test/v1/expense/";
   imageUrl = "http://business.test/v1/file/image/";
-  getAllWithOutMetaURl = "http://business.test/v1/expense/index?totalExpense=all"
+  getAllWithOutMetaURl = "http://business.test/v1/expense/index?totalExpense=all";
+  getCUrrentMonthExpenses = "http://business.test/v1/expense/index?month";
   accounts: [];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -87,8 +88,12 @@ export class ExpensesService {
     return this.http.get<{ results: expense[] }>(`${this.expenseList}`, { params });
   }
 
-  getAllExpenses(): Observable<expense> {
+  getOverAllExpenses(): Observable<expense> {
     return this.http.get<expense>(this.getAllWithOutMetaURl);
+  }
+
+  getCurrentMonthExpenses(): Observable<expense> {
+    return this.http.get<expense>(this.getCUrrentMonthExpenses);
   }
   
 }
