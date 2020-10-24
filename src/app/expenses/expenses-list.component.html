@@ -6,7 +6,7 @@
                     <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
                     <div class="m-l-15">
                         <p class="m-b-0 text-muted">Overall</p>
-                        <h3 class="m-b-0 ls-1">₱{{totalExpense | number}}</h3>
+                        <h3 class="m-b-0 ls-1">₱{{totalExpense | number : '1.2-2'}}</h3>
                     </div>
                 </div>
             </nz-card>
@@ -17,7 +17,7 @@
                     <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
                     <div class="m-l-15">
                         <p class="m-b-0 text-muted">This Month</p>
-                        <h3 class="m-b-0 ls-1">₱{{totalExpensesCurrentMonth | number}}</h3>
+                        <h3 class="m-b-0 ls-1">₱{{totalExpensesCurrentMonth | number: '1.2-2'}}</h3>
                     </div>
                 </div>
             </nz-card>
@@ -95,7 +95,7 @@
                         <span class="m-l-10"><a routerLink="show/{{item.id}}">{{item.name}}</a></span>
                     </div>
                 </td>
-                <td>₱{{item.amount}}</td>
+                <td>₱{{item.amount | number : '1.2-2'}}</td>
                 <td>{{item.created_at | date    }}</td>
                 <td>
                     {{item.expense_category.expense_category_name}}  

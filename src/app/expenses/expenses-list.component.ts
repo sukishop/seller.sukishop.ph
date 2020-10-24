@@ -121,13 +121,10 @@ export class ExpensesListComponent implements OnInit  {
             map((res:any) =>{
                 return res.map((data:any) => {
                     return data.amount
-                    // console.log(data.amount)
                 })
-                // console.log(res.map);
             })
         ).subscribe(res =>{
             const reducer = (total:number, amountValue:number) => total + amountValue;
-            // console.log(res.reduce(reducer));
             this.totalExpensesCurrentMonth = res.reduce(reducer);
         })
     }
