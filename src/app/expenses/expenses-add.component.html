@@ -26,19 +26,6 @@
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please Select Category!">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Account" formControlName="account_id">
-                    <nz-option 
-                    *ngFor="let account of accounts"
-                      nzLabel="{{account.account_name}}"
-                      nzValue="{{account.id}}"
-                    >
-                  </nz-option>
-                </nz-select>
-              </nz-form-control>  
-            </nz-form-item>
-            <nz-form-item>
               <input nz-button type="file"(change)="onFileSelected($event)">  
             </nz-form-item>
             <nz-form-item>

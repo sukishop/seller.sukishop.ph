@@ -5,7 +5,7 @@ import { ExpensesService } from '../shared/services/expenses.service'
 import {Location} from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { expensesCategory } from '../shared/interfaces/expense';
-import { account } from '../shared/interfaces/expense';
+
 
 @Component({
   selector: 'app-expenses-add',
@@ -17,7 +17,6 @@ export class ExpensesAddComponent implements OnInit {
   selectedValue = null;
   validateForm: FormGroup;
   categories: expensesCategory[];
-  accounts: account;
   postValue = [];
   isLoading = false;
   amountPlaceHolder= 'Enter Amount';
@@ -47,23 +46,15 @@ export class ExpensesAddComponent implements OnInit {
       amount: [null, [Validators.required]],
       remember: [true],
       expense_category_id: [null, [Validators.required]],
-      account_id: [null, [Validators.required]],
       image: [null]
     });
     this.getCategory();
-    this.getAccounts();
   }
 
   getCategory(): void{
      this.expenseService.getCategories()
     .subscribe(categories => this.categories = categories['data']);
   }
-
-  getAccounts(): void {
-    this.expenseService.getAccounts()
-    .subscribe(accounts => {this.accounts = accounts['data']});
-  }
-
   postExpenses(): void {
     this.expenseService.postExpenses(this.validateForm.value)
     .subscribe(postData => { 
