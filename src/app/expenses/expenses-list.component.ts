@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableService } from '../shared/services/table.service';
+import { ExpensesService } from '../shared/services/expenses.service';
+import { Observable } from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { expense, expensesCategory } from '../shared/interfaces/expense'
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 interface DataItem {
     id: number;
@@ -14,137 +19,144 @@ interface DataItem {
     templateUrl: './expenses-list.component.html'
 })
 
-export class ExpensesListComponent  {
+export class ExpensesListComponent implements OnInit  {
 
-    selectedCategory: string;
+    selectedCategory: number;
     selectedStatus: string;
+    filterCategory = []
     searchInput: any;
-    displayData = [];
-
-    orderColumn = [
-        {
-            title: 'ID',
-            compare: (a: DataItem, b: DataItem) => a.id - b.id,
-        },        
-        {
-            title: 'Name',
-            compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
-        },
-        {
-            title: 'Amount',
-            compare: (a: DataItem, b: DataItem) => a.amount - b.amount,
-        },
-        {
-            title: 'Date',
-            compare: (a: DataItem, b: DataItem) => a.expense_date.localeCompare(b.expense_date),
-        },
-        {
-            title: 'Category',
-            compare: (a: DataItem, b: DataItem) => a.category.localeCompare(b.category)
-        },       
-        {
-            title: 'Account',
-            compare: (a: DataItem, b: DataItem) => a.account.localeCompare(b.account),
-        },       
-        {
-            title: ''
-        }
-    ]
-
-    expensesList = [
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-        {
-            id: 31,
-            name: 'Bubble Wrap',
-            amount: '5000',
-            date: '06/20/2020',
-            category: 'Operational Expenses',
-            account: 'Cash On Hand',
-        },
-    ]  
+    displayData: [];
+    expensesList: Observable<expense[]>;
+    categories: Observable<expensesCategory[]>;
+    totalList: number;
+    pageIndex = 1;
+    pageSize = 15;
+    loading = true;
+    totalExpense: number;
+    totalCurrentMonthExpenses: number;
+    totalCurrentWeekExpenes: number;
+    totalCurrentDayExpenses: number;
+     // Todo 
+    // times Stamps must be readable on the list
+    // total expenses(month,day,week,overAll)
+    constructor(private tableSvc : TableService, private expenseService: ExpensesService) {}
     
-    constructor(private tableSvc : TableService) {
-        this.displayData = this.expensesList
-    }
 
     search(): void {
-        const data = this.expensesList
-        this.displayData = this.tableSvc.search(this.searchInput, data )
+        this.expenseService.searchByName(this.searchInput)
+        .pipe(
+            debounceTime(1000),
+            distinctUntilChanged(),
+        )
+        .subscribe(result => {this.displayData = result['data']}) 
     }
 
-    categoryChange(value: string): void {
-        const data = this.expensesList
-        value !== 'All'? this.displayData = data.filter(elm => elm.category === value) : this.displayData = data
+    ngOnInit(): void {
+        this.getCategory();
+        this.overAllExpenses();
+        this.currentMonthExpenses();
+        this.currentDayExpenses();
+        this.currentWeekExpenses();
+        this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
+        
+    }
+
+    getCategory(): void{
+
+        this.expenseService.getCategories().pipe(map((value:any) => {
+
+            return value.data.map(res => {
+
+                return {text: res.expense_category_name, value: res.id};
+
+            })
+        }))
+
+       .subscribe(categories => this.filterCategory = categories);
+
+    }
+
+    onQueryParamsChange(params: NzTableQueryParams): void {
+        const { pageSize, pageIndex, sort, filter } = params;
+        const currentSort = sort.find(item => item.value !== null);
+        const sortField = (currentSort && currentSort.key) || null;
+        const sortOrder = (currentSort && currentSort.value) || null;
+        this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
+    }
+
+    loadDataFromServer(
+        pageIndex: number, 
+        pageSize: number, 
+        sortField: string | null, 
+        sortOrder: string | null,
+        filter: Array<{ key: string; value: string[] }>): void {
+        this.expenseService.paginationList(pageIndex, pageSize, sortField, sortOrder, filter).subscribe(data => {
+            this.loading = false;
+            this.displayData = data['data'];
+            if (data){
+                this.totalList = data['total']
+            }
+            if(data['meta'].total){
+                this.totalList = data['meta'].total;
+            }  
+
+        });
+      }
+
+    overAllExpenses() {
+        /** Get all Expense */
+        this.expenseService.getOverAllExpenses().pipe(
+            map((res:any) =>{
+               return res.data.map( (data:any) => {
+                    return data.amount 
+                })
+            })
+        )
+        .subscribe(res =>{
+                    const reducer = (total:number, amountValue:number) => total + amountValue;
+                    this.totalExpense = res.reduce(reducer)
+                })
+    }
+
+    currentMonthExpenses() {
+        this.expenseService.getCurrentMonthExpenses().pipe(
+            map((res:any) =>{
+                return res.data.map( (data:any) => {
+                     return data.amount 
+                 })
+             })
+        ).subscribe(res =>{
+            const reducer = (total:number, amountValue:number) => total + amountValue;
+            this.totalCurrentMonthExpenses = res.reduce(reducer);
+        })
+    }
+
+    currentWeekExpenses() {
+        this.expenseService.getCurrentWeekExpenses().pipe(
+            map((res:any) =>{
+                return res.data.map( (data:any) => {
+                     return data.amount 
+                 })
+             })
+        ).subscribe(res => {
+            const reducer = (total:number, amountValue:number) => total + amountValue;
+            this.totalCurrentWeekExpenes = res.reduce(reducer);
+            // console.log(res)
+        })
+    }
+
+    currentDayExpenses() {
+        this.expenseService.getCurrentDayExpenses(
+            
+        ).pipe(
+            map((res:any) =>{
+                return res.data.map( (data:any) => {
+                     return data.amount 
+                 })
+             })
+        ).subscribe(res =>{
+            const reducer = (total:number, amountValue:number) => total + amountValue;
+            this.totalCurrentDayExpenses = res.reduce(reducer);
+        })
     }
 }    

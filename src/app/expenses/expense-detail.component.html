@@ -1,0 +1,24 @@
+<div class="container purchase-order" *ngIf="expense">
+    <nz-card nzTitle="Expense">
+        <div class="media align-items-center" >
+            <nz-descriptions nzTitle="Expense Info">
+                <nz-descriptions-item nzTitle="Name">{{expense.name}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Amount P">{{expense.amount}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Category">{{expense.expense_category.expense_category_name}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Date">{{expense.created_at | date }}</nz-descriptions-item>
+                <!-- <nz-descriptions-item  nzTitle="FileName">{{expense.filename}}</nz-descriptions-item>  -->
+                <!-- <img [src] = "expense.filename" alt="">  -->
+                
+            </nz-descriptions>
+        </div>
+    </nz-card>
+</div>
+<div class="media align-items-center m-b-15">
+    <!-- <nz-avatar nzShape="square" [nzSSize]="70" nzSrc="assets/images/product/travel.jpg"></nz-avatar> -->
+    <div class="m-l-15">
+       
+        <!-- <p class="text-muted m-b-0">Code: #5325</p> -->
+        <img src="{{imageDirectoryPath}}{{expense.filename}}">
+
+    </div>
+</div>

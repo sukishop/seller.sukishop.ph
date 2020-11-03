@@ -6,7 +6,7 @@
                     <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
                     <div class="m-l-15">
                         <p class="m-b-0 text-muted">Overall</p>
-                        <h3 class="m-b-0 ls-1">1,300,521</h3>
+                        <h3 class="m-b-0 ls-1">₱{{totalExpense | number : '1.2-2'}}</h3>
                     </div>
                 </div>
             </nz-card>
@@ -17,7 +17,7 @@
                     <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
                     <div class="m-l-15">
                         <p class="m-b-0 text-muted">This Month</p>
-                        <h3 class="m-b-0 ls-1">₱144,521</h3>
+                        <h3 class="m-b-0 ls-1">₱{{totalCurrentMonthExpenses | number: '1.2-2'}}</h3>
                     </div>
                 </div>
             </nz-card>
@@ -28,7 +28,7 @@
                     <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
                     <div class="m-l-15">
                         <p class="m-b-0 text-muted">This week</p>
-                        <h3 class="m-b-0 ls-1">₱50000</h3>
+                        <h3 class="m-b-0 ls-1">₱{{totalCurrentWeekExpenes | number: '1.2-2'}}</h3>
                     </div>
                 </div>
             </nz-card>
@@ -39,7 +39,7 @@
                     <i class="font-size-40 text-danger" nz-icon nzType="stock" theme="outline"></i>
                     <div class="m-l-15">
                         <p class="m-b-0 text-muted">Today</p>
-                        <h3 class="m-b-0 ls-1">₱10000</h3>
+                        <h3 class="m-b-0 ls-1">₱{{totalCurrentDayExpenses | number: '1.2-2'}}</h3>
                     </div>
                 </div>
             </nz-card>
@@ -58,45 +58,50 @@
                     <ng-template #prefixTemplate>
                         <i nz-icon nzType="search" class="opacity-05"></i>
                     </ng-template>   
-                </div>
-                <div class="m-b-10 m-r-20 d-flex align-items-center">
-                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange($event)">
-                        <nz-option nzLabel="All" nzValue="All"></nz-option>
-                        <nz-option nzLabel="Operational Expenses" nzValue="Operational Expenses"></nz-option>
-                        <nz-option nzLabel="Personal Expenses" nzValue="Personal Expenses"></nz-option>
-                        <nz-option nzLabel="Shipping Expenses" nzValue="Shipping Expenses"></nz-option>
-                    </nz-select>
-                </div>                
+                </div>       
             </div>          
         </div>
         <div class="col-lg-4 text-right">
-            <a nz-button nzType="primary">
+            <a nz-button nzType="primary" [routerLink]="['/expenses/add']">
                 <i nz-icon nzType="plus-circle" theme="outline"></i>
                 <span>Add Expenses</span>
             </a>
         </div>
     </div>
-    <nz-table #expensesListTable [nzData]="displayData">
+    <nz-table #expensesListTable 
+        [nzData] = "displayData" 
+        [nzFrontPagination] = "false" 
+        [nzPageIndex]="pageIndex"
+        [nzTotal] = "totalList"
+        [nzPageSize]="pageSize"
+        [nzLoading]="loading"
+        (nzQueryParams)="onQueryParamsChange($event)"
+    >
         <thead>
             <tr>
-                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th>
+                <th></th>
+                <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th nzColumnKey="expense_category_id" [nzFilters]="filterCategory" [nzFilterFn]="true" >Category</th>
+                <th>Account</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of expensesListTable.data;  let i=index">
+            <tr *ngFor="let item of displayData;  let i=index">
                 <td>#{{item.id}}</td>
                 <td>
                     <div class="d-flex align-items-center">                        
-                        <span class="m-l-10"><a [routerLink]="['#']">{{item.name}}</a></span>
+                        <span class="m-l-10"><a routerLink="show/{{item.id}}">{{item.name}}</a></span>
                     </div>
                 </td>
-                <td>₱{{item.amount | number:'3.2-5'}}</td>
-                <td>{{item.date}}</td>
+                <td>₱{{item.amount | number : '1.2-2'}}</td>
+                <td>{{item.created_at | date    }}</td>
                 <td>
-                    {{item.category}}  
+                    {{item.expense_category.expense_category_name}}  
                 </td>
                 <td>                    
-                    <span class="text-capitalize">{{item.account}}</span>
+                    <span class="text-capitalize">{{item.account.account_name}}</span>
                 </td>
                 <td class="text-md-right">
                     <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit" [routerLink]="'#'">
@@ -106,7 +111,7 @@
                         <i nz-icon nzType="delete" theme="outline"></i>
                     </button>
                 </td>
-            </tr>
         </tbody>
     </nz-table>
+    
 </nz-card>

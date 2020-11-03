@@ -25,13 +25,15 @@ import { environment } from '../environments/environment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './shared/interceptor/token.interceptor';
 
+
 registerLocaleData(en);
 
 @NgModule({
     declarations: [
         AppComponent,
         CommonLayoutComponent,
-        FullLayoutComponent
+        FullLayoutComponent,
+ 
     ],
     imports: [
         BrowserModule,

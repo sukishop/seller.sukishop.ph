@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExpensesRoutingModule } from './expenses-routing.module';
 import { QuillModule } from 'ngx-quill';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 import { AppsService } from '../shared/services/apps.service';
@@ -32,8 +33,13 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+
 
 import { ExpensesListComponent } from './expenses-list.component';
+import { ExpensesAddComponent } from './expenses-add.component';
+import { ExpenseDetailComponent } from './expense-detail.component';
 
 const antdModule = [
     NzButtonModule,
@@ -59,7 +65,11 @@ const antdModule = [
     NzPaginationModule,
     NzDatePickerModule,
     NzCheckboxModule,
-    NzMessageModule
+    NzMessageModule,
+    NzInputNumberModule,
+    HttpClientModule,
+    NzDescriptionsModule,
+
 ]
 
 @NgModule({
@@ -71,7 +81,7 @@ const antdModule = [
         ...antdModule
     ],
     declarations: [        
-        ExpensesListComponent,        
+        ExpensesListComponent, ExpensesAddComponent, ExpenseDetailComponent,        
     ],
     providers: [
         ThemeConstantService,
