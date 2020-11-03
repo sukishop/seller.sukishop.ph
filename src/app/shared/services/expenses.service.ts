@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { expensesCategory } from '../interfaces/expense';
-import { expense, account, image } from '../interfaces/expense';
+import { expense, image } from '../interfaces/expense';
 
 import { filter, map, flatMap, debounceTime, distinctUntilChanged, debounce, tap, catchError, retry } from 'rxjs/operators';
 @Injectable({
@@ -11,7 +11,7 @@ import { filter, map, flatMap, debounceTime, distinctUntilChanged, debounce, tap
 export class ExpensesService {
   expenseCategoryUrl = 'http://business.test/v1/expense/category';
   expenseList = 'http://business.test/v1/expense/index';
-  accountUrl = 'http://business.test/v1/account/index';
+ 
   postExpenseUrl = 'http://business.test/v1/expense';
   postImageUrl = 'http://business.test/v1/expense/upload';
   searchByNameUrl = 'http://business.test/v1/expense/index?name=';
@@ -23,7 +23,6 @@ export class ExpensesService {
   getCurrentMonthExpense = "http://business.test/v1/expense/index?month";
   getCurrentDayExpense = "http://business.test/v1/expense/index?day";
   getCurrentWeekExpense = "http://business.test/v1/expense/index?week";
-  accounts: [];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -34,10 +33,6 @@ export class ExpensesService {
 
   getCategories(): Observable<expensesCategory[]> { 
     return this.http.get<expensesCategory[]>(this.expenseCategoryUrl)
-  }
-
-  getAccounts(): Observable<account[]> { 
-    return this.http.get<account[]>(this.accountUrl)
   }
 
   postExpenses(formData: any) {
